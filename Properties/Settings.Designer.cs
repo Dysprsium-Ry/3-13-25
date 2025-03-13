@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _3_13_25.Properties
+namespace BienvenidoOnlineTutorServices.Properties
 {
 
 

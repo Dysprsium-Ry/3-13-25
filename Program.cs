@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BienvenidoOnlineTutorServices.D2.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _3_13_25
+namespace BienvenidoOnlineTutorServices
 {
     static class Program
     {
@@ -16,7 +17,7 @@ namespace _3_13_25
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SignIn());
+            Application.Run(new mainForm());
         }
     }
 }
