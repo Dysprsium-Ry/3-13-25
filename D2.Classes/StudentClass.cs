@@ -1,11 +1,13 @@
 ﻿using BOTS.Database_Connection;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static BienvenidoOnlineTutorServices.D2.Objects.Objects;
 
 namespace BienvenidoOnlineTutorServices.D2.Classes
@@ -22,6 +24,25 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                     command.Parameters.AddWithValue("@email", StudentObjects.StudEmail);
                     command.Parameters.AddWithValue("@preferredSubject", StudentObjects.PreferredSubjects);
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void ShowTutor(DataGridView dataGridView)
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT TutorName, HourlyRate FROM D2.Tutor WHERE Expertise = @expertise", connection))
+                {
+                    command.Parameters.AddWithValue("@expertise", StudentObjects.PreferredSubjects);
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        dataGridView.AutoGenerateColumns = true;
+                        dataGridView.DataSource = table;
+                    }
                 }
             }
         }
