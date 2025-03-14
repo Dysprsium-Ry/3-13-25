@@ -7,19 +7,25 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
     {
         public class SubjectObjects()
         {
+            public static long SubjectId { get; set; }
             public static string[] Subject { get; set; }
+            public static string SubjectName { get; set; }
         }
 
         public class StudentObjects
         {
+            public static long StudId { get; set; }
             public static string StudName { get; set; }
             public static string StudEmail { get; set; }
             public static string PreferredSubjects { get; set; }
             public static int SessionDuration { get; set; }
+            public static string Tutor { get; set; }
+            public static int HourlyRate { get; set; }
         }
 
         public class TutorObjects
         {
+            public static long TutorId { get; set; }
             public static string TutorName { get; set; }
             public static string TutorEmail { get; set; }
             public static string Expertise { get; set; }
@@ -33,7 +39,6 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
             public int HourlyRate { get; set; }
             public int TotalFee { get; set; }
             public string Tutor { get; set; }
-
             public override bool Equals(object obj)
             {
                 if (obj == null || GetType() != obj.GetType())
@@ -62,7 +67,7 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
             }
         }
 
-        public class RegisteredSubject
+        public class TemporalData
         {
             public static List<PreferredSubject> SubjectList = new List<PreferredSubject>();
             public static string Subject { get; set; }
@@ -70,6 +75,13 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
             public static int HourlyRate { get; set; }
             public static int TotalFee { get; set; }
             public static string Tutor { get; set; }
+        }
+
+        public class BillingObject 
+        { 
+            public static long TutorId { get; set; }
+            public static long SubjectId { get; set; }
+            public static int pay { get; set; }
         }
     }
 }

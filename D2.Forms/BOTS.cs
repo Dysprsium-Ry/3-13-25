@@ -1,6 +1,7 @@
 ﻿using _3_13_25.D2.Classes;
 using BienvenidoOnlineTutorServices.D2.Classes;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using static BienvenidoOnlineTutorServices.D2.Objects.Objects;
 
@@ -13,35 +14,52 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             InitializeComponent();
             refresh();
         }
-
         private void refresh()
         {
             #region StudentRelated
             SubjectsReload();
+
             #endregion
 
             #region TutorRelated
             TutorClass.ShowTutor(dataGridViewTutorManagement);
             #endregion
-        }
 
+            #region SubjectRelated
+            SubjectClass.ShowSubjects(dataGridViewSubjects);
+            #endregion
+
+            #region BillingRelated
+            BillingClass.ShowBilling(dataGridViewPendingBilling);
+            BillingClass.ShowPaidilling(dataGridViewPayedBilling);
+            #endregion
+        }
         private void buttonEnrollStudent_Click(object sender, EventArgs e)
         {
-            foreach (Control control in tabPageEnroll.Controls)
+            StudentObjects.StudName = TextBox_StudentName.Text;
+            StudentObjects.StudEmail = TextBox_StudentEmail.Text;
+
+            if (TemporalData.SubjectList.Count > 0)
             {
-                if (control is TextBox textbox && !string.IsNullOrWhiteSpace(textbox.Text))
+                foreach (var transaction in TemporalData.SubjectList)
                 {
-                    StudentObjects.StudName = TextBox_StudentName.Text;
-                    StudentObjects.StudEmail = TextBox_StudentEmail.Text;
+                    TemporalData.Subject = transaction.Subject;
+                    TemporalData.SessionDuration = transaction.SessionDuration;
+                    TemporalData.HourlyRate = transaction.HourlyRate;
+                    TemporalData.TotalFee = transaction.TotalFee;
+                    TemporalData.Tutor = transaction.Tutor;
 
+                    StudentClass.EnrollStudent(); MessageBox.Show($"Subject {TemporalData.Subject} has been registered Succesfully", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    StudentClass.EnrollStudent();
-                    MessageBox.Show("Student Enrolled Successfully", "Enrollment Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    TutorClass.FetchId();
+                    StudentClass.FetchId();
+                    SubjectClass.FetchId();
+                    BillingClass.TransactionRegistration();
                 }
-                else { MessageBox.Show("Fields cannot be empty", "Invalid Action", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+                MessageBox.Show("Student enrolled successfully", "Registration Success", MessageBoxButtons.OK, MessageBoxIcon.Information); refresh();
             }
+            else { MessageBox.Show("Empty registry aborting operation.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
-
         private void SubjectsReload()
         {
             comboBoxPreferredSubjects.Items.Clear();
@@ -82,7 +100,6 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             }
             textBoxTutorHourlyRate.SelectionStart = textBoxTutorHourlyRate.Text.Length;
         }
-
         private void buttonRegisterTutor_Click(object sender, EventArgs e)
         {
             TutorObjects.TutorName = textBoxTutorName.Text;
@@ -93,30 +110,58 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             TutorClass.ManageTutor();
             refresh();
         }
-
         private void buttonRegisterPrefSub_Click(object sender, EventArgs e)
         {
-            if (RegisteredSubject.SubjectList.Count > 0)
-            {
-                foreach (var transaction in RegisteredSubject.SubjectList)
-                {
-                    RegisteredSubject.Subject = transaction.Subject;
-                    RegisteredSubject.SessionDuration = transaction.SessionDuration;
-                    RegisteredSubject.HourlyRate = transaction.HourlyRate;
-                    RegisteredSubject.TotalFee = transaction.TotalFee;
-                    RegisteredSubject.Tutor = transaction.Tutor;
+            StudentObjects.PreferredSubjects = comboBoxPreferredSubjects.Text;
+            StudentObjects.SessionDuration = int.Parse(textBoxSessionDuration.Text);
 
-                    StudentClass.EnrollStudent(); MessageBox.Show($"Subject {RegisteredSubject.Subject} has been registered Succesfully", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                MessageBox.Show("Student enrolled successfully", "Registration Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var transactions = new PreferredSubject
+            {
+                Subject = StudentObjects.PreferredSubjects,
+                Tutor = StudentObjects.Tutor,
+                SessionDuration = StudentObjects.SessionDuration,
+                HourlyRate = StudentObjects.HourlyRate,
+                TotalFee = StudentObjects.SessionDuration * StudentObjects.HourlyRate
+            };
+
+            if (!TemporalData.SubjectList.Contains(transactions))
+            {
+                TemporalData.SubjectList.Add(transactions);
+
+                dataGridViewPreferredSubjects.DataSource = null;
+                dataGridViewPreferredSubjects.DataSource = TemporalData.SubjectList;
+
+                var overallTotal = TemporalData.SubjectList.Sum(transactions => transactions.TotalFee);
+                textBoxOverallTotalFee.Text = overallTotal.ToString();
             }
             refresh();
         }
-
         private void comboBoxPreferredSubjects_SelectedValueChanged(object sender, EventArgs e)
         {
             StudentObjects.PreferredSubjects = comboBoxPreferredSubjects.Text;
             StudentClass.ShowTutor(dataGridViewTutorInSubject);
+        }
+        private void dataGridViewTutorInSubject_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            StudentClass.SelectedValue(dataGridViewTutorInSubject);
+        }
+
+        private void textBoxTutorinServiceLib_TextChanged(object sender, EventArgs e)
+        {
+            SubjectObjects.SubjectName = textBoxSubjectInSubjectLib.Text;
+            SubjectClass.ShowTutorOfTheSubject(dataGridViewTutorInSubject);
+        }
+
+        private void buttonPaid_Click(object sender, EventArgs e)
+        {
+            BillingObject.pay = int.Parse(textBoxPayment.Text);
+            BillingClass.Payment();
+            refresh();
+        }
+
+        private void dataGridViewPendingBilling_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            BillingClass.SelectedValue(dataGridViewPendingBilling);
         }
     }
 }

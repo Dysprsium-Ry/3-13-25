@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,6 +42,19 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                         dataGridView.AutoGenerateColumns = true;
                         dataGridView.DataSource = table;
                     }
+                }
+            }
+        }
+
+        public static void FetchId()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT TutorId FROM D2.Tutor WHERE TutorName = @tutorname", connection))
+                {
+                    command.Parameters.AddWithValue("@tutorname", TemporalData.Tutor);
+
+                    TutorObjects.TutorId = Convert.ToInt64(command.ExecuteScalar());
                 }
             }
         }
