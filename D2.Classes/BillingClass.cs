@@ -79,7 +79,7 @@ namespace _3_13_25.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Billing (PayedFee) VALUES (@payedfee);", connection))
+                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Billing (PayedFee) VALUES (@payedfee) WHERE HourlyRate != Null;", connection))
                 {
                     command.Parameters.AddWithValue("@payedFee", BillingObject.pay);
                     command.ExecuteNonQuery();
