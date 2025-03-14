@@ -70,7 +70,7 @@ namespace _3_13_25.D2.Classes
 
             if (selectedRow != null)
             {
-                BillingObject.TutorId = Convert.ToInt32(selectedRow.Cells[0].Value ?? 0);
+                BillingObject.LogId = Convert.ToInt32(selectedRow.Cells[0].Value ?? 0);
                 BillingObject.SubjectId = Convert.ToInt32(selectedRow.Cells[1].Value ?? 0);
             }
         }
@@ -79,8 +79,9 @@ namespace _3_13_25.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Billing (PayedFee) VALUES (@payedfee) WHERE HourlyRate != Null;", connection))
+                using (SqlCommand command = new SqlCommand("UPDATE D2.Billing SET PayedFee = @payedfee WHERE LogId = @logId", connection))
                 {
+                    command.Parameters.AddWithValue("@logId", BillingObject.LogId);
                     command.Parameters.AddWithValue("@payedFee", BillingObject.pay);
                     command.ExecuteNonQuery();
                 }

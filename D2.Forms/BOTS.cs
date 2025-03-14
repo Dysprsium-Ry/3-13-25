@@ -30,6 +30,8 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             #endregion
 
             #region BillingRelated
+            dataGridViewPayedBilling.DataSource = null;
+            dataGridViewPendingBilling.DataSource = null;
             BillingClass.ShowBilling(dataGridViewPendingBilling);
             BillingClass.ShowPaidilling(dataGridViewPayedBilling);
             #endregion

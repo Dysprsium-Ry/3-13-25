@@ -79,7 +79,7 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
 
         public class BillingObject 
         { 
-            public static long TutorId { get; set; }
+            public static long LogId { get; set; }
             public static long SubjectId { get; set; }
             public static int pay { get; set; }
         }
