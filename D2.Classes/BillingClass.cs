@@ -13,11 +13,12 @@ namespace _3_13_25.D2.Classes
 {
     public class BillingClass
     {
+        #region function
         public static void TransactionRegistration()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Billing (TutorId, SubjectId, StudentId, SessionDuration, HourlyRate, TotalFee) VALUES(@tutorId, @subjectId, @studId, @sessionDuration, @hourlyRate, @totalFee);", connection))
+                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Billing (TutorId, SubjectId, StudentId, SessionDuration, HourlyRate, TotalFee, PayedFee) VALUES(@tutorId, @subjectId, @studId, @sessionDuration, @hourlyRate, @totalFee, 0);", connection))
                 {
                     command.Parameters.AddWithValue("@tutorId",  TutorObjects.TutorId);
                     command.Parameters.AddWithValue("@subjectId", SubjectObjects.SubjectId);
@@ -29,12 +30,26 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
+        public static void Payment()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("UPDATE D2.Billing SET PayedFee = @payedfee WHERE LogId = @logId", connection))
+                {
+                    command.Parameters.AddWithValue("@logId", BillingObject.LogId);
+                    command.Parameters.AddWithValue("@payedFee", BillingObject.pay);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        #endregion
 
+        #region DataGridViewProvider
         public static void ShowBilling(DataGridView dataGridView)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.Billing", connection))
+                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.Billing WHERE PaymentStatus IN ('Pending', 'Partial')", connection))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
@@ -46,7 +61,6 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
-        
         public static void ShowPaidilling(DataGridView dataGridView)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -63,7 +77,6 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
-
         public static void SelectedValue(DataGridView dataGridView)
         {
             DataGridViewRow selectedRow = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
@@ -74,18 +87,6 @@ namespace _3_13_25.D2.Classes
                 BillingObject.SubjectId = Convert.ToInt32(selectedRow.Cells[1].Value ?? 0);
             }
         }
-
-        public static void Payment()
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("UPDATE D2.Billing SET PayedFee = @payedfee WHERE LogId = @logId", connection))
-                {
-                    command.Parameters.AddWithValue("@logId", BillingObject.LogId);
-                    command.Parameters.AddWithValue("@payedFee", BillingObject.pay);
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
+        #endregion
     }
 }

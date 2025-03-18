@@ -9,6 +9,29 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
 {
     public class StudentClass
     {
+        #region function
+        public static void SelectedValue(DataGridView dataGridView)
+        {
+            DataGridViewRow selectedRow = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
+
+            if (selectedRow != null)
+            {
+                StudentObjects.Tutor = selectedRow.Cells[0].Value.ToString();
+                StudentObjects.HourlyRate = Convert.ToInt32(selectedRow.Cells[1].Value ?? 0);
+            }
+        }
+        public static void FetchId()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT StudId FROM D2.Students WHERE StudentName = @name", connection))
+                {
+                    command.Parameters.AddWithValue("@name", StudentObjects.StudName);
+
+                    StudentObjects.StudId = Convert.ToInt64(command.ExecuteScalar());
+                }
+            }
+        }
         public static void EnrollStudent()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -22,7 +45,9 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 }
             }
         }
+        #endregion
 
+        #region DataGridViewProvider
         public static void ShowTutor(DataGridView dataGridView)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -41,29 +66,6 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 }
             }
         }
-
-        public static void SelectedValue(DataGridView dataGridView)
-        {
-             DataGridViewRow selectedRow = dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex];
-
-            if (selectedRow != null) 
-            {
-                StudentObjects.Tutor = selectedRow.Cells[0].Value.ToString();
-                StudentObjects.HourlyRate = Convert.ToInt32(selectedRow.Cells[1].Value ?? 0);
-            }
-        }
-
-        public static void FetchId()
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT StudId FROM D2.Students WHERE StudentName = @name", connection))
-                {
-                    command.Parameters.AddWithValue("@name", StudentObjects.StudName);
-
-                    StudentObjects.StudId = Convert.ToInt64(command.ExecuteScalar());
-                }
-            }
-        }
+        #endregion
     }
 }

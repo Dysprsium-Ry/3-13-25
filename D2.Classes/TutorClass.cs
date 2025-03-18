@@ -14,21 +14,60 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
 {
     public class TutorClass
     {
+        #region function
+        public static void FetchId()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT TutorId FROM D2.Tutor WHERE TutorName = @tutorname", connection))
+                {
+                    command.Parameters.AddWithValue("@tutorname", TemporalData.Tutor);
+
+                    TutorObjects.TutorId = Convert.ToInt64(command.ExecuteScalar());
+                }
+            }
+        }
         public static void ManageTutor()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Tutor (TutorName, Expertise, HourlyRate, Email) VALUES(@name, @expertise, @hourlyRate, @email)", connection))
+                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Tutor (TutorName, Expertise, HourlyRate, Email, InTime, OutTime) VALUES(@name, @expertise, @hourlyRate, @email, @intime, @outtime)", connection))
                 {
                     command.Parameters.AddWithValue("@name", TutorObjects.TutorName);
                     command.Parameters.AddWithValue("@email", TutorObjects.TutorEmail);
                     command.Parameters.AddWithValue("@expertise", TutorObjects.Expertise);
                     command.Parameters.AddWithValue("@hourlyRate", TutorObjects.HourlyRate);
+                    command.Parameters.AddWithValue("@intime", TutorObjects.InTime);
+                    command.Parameters.AddWithValue("@outtime", TutorObjects.OutTime);
                     command.ExecuteNonQuery();
                 }
             }
         }
+        public static void DeleteTutor()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("DELETE FROM D2.Tutor WHERE TutorId = @tutorId", connection))
+                {
+                    command.Parameters.AddWithValue("@tutorId", TutorObjects.TutorId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public static bool CheckTutor()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM D2.Tutor WHERE TutorName = @tutorname", connection))
+                {
+                    command.Parameters.AddWithValue("@tutorname", TutorObjects.TutorName);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
+            }
+        }
+        #endregion
 
+        #region DataGridViewProvider
         public static void ShowTutor(DataGridView dataGridView)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -46,17 +85,24 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
             }
         }
 
-        public static void FetchId()
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT TutorId FROM D2.Tutor WHERE TutorName = @tutorname", connection))
-                {
-                    command.Parameters.AddWithValue("@tutorname", TemporalData.Tutor);
+        //public static void DispaySubjectTutor(DataGridView dataGridView)
+        //{
+        //    using (SqlConnection connection = DatabaseConnection.Establish())
+        //    {
+        //        using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate FROM D2.Tutor WHERE Subject = @subject", connection))
+        //        {
+        //            command.Parameters.AddWithValue("@subject", TutorObjects.Expertise);
 
-                    TutorObjects.TutorId = Convert.ToInt64(command.ExecuteScalar());
-                }
-            }
-        }
+        //            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+        //            {
+        //                DataTable table = new DataTable();
+        //                adapter.Fill(table);
+        //                dataGridView.AutoGenerateColumns = true;
+        //                dataGridView.DataSource = table;
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
     }
 }

@@ -13,6 +13,7 @@ namespace _3_13_25.D2.Classes
 {
     public class SubjectClass
     {
+        #region function
         public static void FetchSubjects()
         {
             using (SqlConnection con = DatabaseConnection.Establish())
@@ -32,7 +33,6 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
-
         public static void FetchId()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -45,7 +45,31 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
+        public static void AddSub()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("INSERT INTO D2.Subject (Subject) VALUES(@subject)", connection))
+                {
+                    command.Parameters.AddWithValue("@subject", subjectLib.subject);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void DeleteSub()
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("DELETE FROM D2.Subject WHERE Subject = @subject", connection))
+                {
+                    command.Parameters.AddWithValue("@subject", subjectLib.subject);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        #endregion
 
+        #region DataGridViewProvider
         public static void ShowSubjects(DataGridView dataGridView)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -80,5 +104,6 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
+#endregion
     }
 }

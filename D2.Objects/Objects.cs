@@ -30,6 +30,8 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
             public static string TutorEmail { get; set; }
             public static string Expertise { get; set; }
             public static int HourlyRate { get; set; }
+            public static DateTime InTime { get; set; }
+            public static DateTime OutTime { get; set; }
         }
 
         public class PreferredSubject
@@ -65,6 +67,11 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
                     return hash;
                 }
             }
+        }
+
+        public class subjectLib 
+        {
+            public static string subject { get; set; }
         }
 
         public class TemporalData
