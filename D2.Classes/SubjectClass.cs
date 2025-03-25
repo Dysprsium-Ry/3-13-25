@@ -14,7 +14,7 @@ namespace _3_13_25.D2.Classes
     public class SubjectClass
     {
         #region function
-        public static void FetchSubjects()
+        public static string[] FetchSubjects()
         {
             using (SqlConnection con = DatabaseConnection.Establish())
             {
@@ -28,20 +28,8 @@ namespace _3_13_25.D2.Classes
                         {
                             items.Add(reader["Subject"].ToString());
                         }
-                        SubjectObjects.Subject = items.ToArray();
+                        return items.ToArray();
                     }
-                }
-            }
-        }
-        public static void FetchId()
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT SubjectId FROM D2.Subject WHERE Subject = @subject", connection))
-                {
-                    command.Parameters.AddWithValue("@subject", TemporalData.Subject);
-
-                    SubjectObjects.SubjectId = Convert.ToInt64(command.ExecuteScalar());
                 }
             }
         }
@@ -51,7 +39,7 @@ namespace _3_13_25.D2.Classes
             {
                 using (SqlCommand command = new SqlCommand("INSERT INTO D2.Subject (Subject) VALUES(@subject)", connection))
                 {
-                    command.Parameters.AddWithValue("@subject", subjectLib.subject);
+                    command.Parameters.AddWithValue("@subject", TemporalData.Subject);
                     command.ExecuteNonQuery();
                 }
             }
@@ -62,7 +50,7 @@ namespace _3_13_25.D2.Classes
             {
                 using (SqlCommand command = new SqlCommand("DELETE FROM D2.Subject WHERE Subject = @subject", connection))
                 {
-                    command.Parameters.AddWithValue("@subject", subjectLib.subject);
+                    command.Parameters.AddWithValue("@subject", TemporalData.Subject);
                     command.ExecuteNonQuery();
                 }
             }

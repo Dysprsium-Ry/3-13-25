@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DbA2DataSet" targetNamespace="http://tempuri.org/DbA2DataSet.xsd" xmlns:mstns="http://tempuri.org/DbA2DataSet.xsd" xmlns="http://tempuri.org/DbA2DataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DbA2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DbA2ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings._3_13_25.Properties.Settings.GlobalReference.Default.DbA2ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BillingViewPaidTableAdapter" GeneratorDataComponentClassName="BillingViewPaidTableAdapter" Name="BillingViewPaid" UserDataComponentName="BillingViewPaidTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DbA2ConnectionString (Settings)" DbObjectName="DbA2.D2.BillingViewPaid" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT PaymentStatus, SessionSchedule, SessionEndSchedule, StudentName, Subject, TutorName, TotalFee FROM D2.BillingViewPaid</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="PaymentStatus" DataSetColumn="PaymentStatus" />
+              <Mapping SourceColumn="SessionSchedule" DataSetColumn="SessionSchedule" />
+              <Mapping SourceColumn="SessionEndSchedule" DataSetColumn="SessionEndSchedule" />
+              <Mapping SourceColumn="StudentName" DataSetColumn="StudentName" />
+              <Mapping SourceColumn="Subject" DataSetColumn="Subject" />
+              <Mapping SourceColumn="TutorName" DataSetColumn="TutorName" />
+              <Mapping SourceColumn="TotalFee" DataSetColumn="TotalFee" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DbA2DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="DbA2DataSet" msprop:Generator_DataSetName="DbA2DataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BillingViewPaid" msprop:Generator_RowEvHandlerName="BillingViewPaidRowChangeEventHandler" msprop:Generator_RowDeletedName="BillingViewPaidRowDeleted" msprop:Generator_RowDeletingName="BillingViewPaidRowDeleting" msprop:Generator_RowEvArgName="BillingViewPaidRowChangeEvent" msprop:Generator_TablePropName="BillingViewPaid" msprop:Generator_RowChangedName="BillingViewPaidRowChanged" msprop:Generator_RowChangingName="BillingViewPaidRowChanging" msprop:Generator_TableClassName="BillingViewPaidDataTable" msprop:Generator_RowClassName="BillingViewPaidRow" msprop:Generator_TableVarName="tableBillingViewPaid" msprop:Generator_UserTableName="BillingViewPaid">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PaymentStatus" msprop:Generator_ColumnPropNameInRow="PaymentStatus" msprop:Generator_ColumnPropNameInTable="PaymentStatusColumn" msprop:Generator_ColumnVarNameInTable="columnPaymentStatus" msprop:Generator_UserColumnName="PaymentStatus" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SessionSchedule" msprop:Generator_ColumnPropNameInRow="SessionSchedule" msprop:Generator_ColumnPropNameInTable="SessionScheduleColumn" msprop:Generator_ColumnVarNameInTable="columnSessionSchedule" msprop:Generator_UserColumnName="SessionSchedule" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SessionEndSchedule" msprop:Generator_ColumnPropNameInRow="SessionEndSchedule" msprop:Generator_ColumnPropNameInTable="SessionEndScheduleColumn" msprop:Generator_ColumnVarNameInTable="columnSessionEndSchedule" msprop:Generator_UserColumnName="SessionEndSchedule" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="StudentName" msprop:Generator_ColumnPropNameInRow="StudentName" msprop:Generator_ColumnPropNameInTable="StudentNameColumn" msprop:Generator_ColumnVarNameInTable="columnStudentName" msprop:Generator_UserColumnName="StudentName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Subject" msprop:Generator_ColumnPropNameInRow="Subject" msprop:Generator_ColumnPropNameInTable="SubjectColumn" msprop:Generator_ColumnVarNameInTable="columnSubject" msprop:Generator_UserColumnName="Subject" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TutorName" msprop:Generator_ColumnPropNameInRow="TutorName" msprop:Generator_ColumnPropNameInTable="TutorNameColumn" msprop:Generator_ColumnVarNameInTable="columnTutorName" msprop:Generator_UserColumnName="TutorName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalFee" msprop:Generator_ColumnPropNameInRow="TotalFee" msprop:Generator_ColumnPropNameInTable="TotalFeeColumn" msprop:Generator_ColumnVarNameInTable="columnTotalFee" msprop:Generator_UserColumnName="TotalFee" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
