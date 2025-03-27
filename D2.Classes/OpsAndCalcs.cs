@@ -1,7 +1,9 @@
-﻿using BienvenidoOnlineTutorServices.D2.Classes;
+﻿using _3_13_25.D2.IdFetcherClasses;
+using BienvenidoOnlineTutorServices.D2.Classes;
 using BOTS.Database_Connection;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,22 +22,25 @@ namespace _3_13_25.D2.Classes
         }
         public static decimal CalculateRemainingFee(decimal RemainingFee, decimal paidFee)
         {
-            return RemainingFee - paidFee;
+            decimal result = RemainingFee - paidFee;
+
+            if (result >= 0) { return result; }
+            else if (result < 0) { return 0; }
+            else { return 0; }
         }
         public static decimal SumPaidFee(decimal PaidFee, decimal PayFee)
         {
             return PaidFee + PayFee;
         }
-        public static string PaymentStatus(decimal RemainingFee, decimal PaidFee)
+        public static string PaymentStatus(decimal payfee, decimal remainingfee)
         {
-            decimal result = RemainingFee - PaidFee;
+            if (payfee == 0 && remainingfee == 0) { return "Pending"; }
 
-            if (result == 0)
-                return "Paid";
-            else if (RemainingFee > 0 && PaidFee > 0)
-                return "Partial";
-            else
-                return "Pending";
+            decimal result = payfee - remainingfee;
+
+            if (result == 0) { return "Paid"; }
+            else if (result != 0 ) { return "Partial"; }
+            else { return "Pending"; }
         }
         public static DateTime CalculatedScheduleSession(DateTime StartPeriod, int SessionDuration)
         {
@@ -69,17 +74,19 @@ namespace _3_13_25.D2.Classes
 
             return result;
         }
-        public static bool IfScheduleExist(DateTime dateTime)
+        public static bool IfScheduleExist(DateTime date, TimeSpan time)
         {
+            DateTime scheduleTime = date.Date + time;
+
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand(@" SELECT COUNT(*) FROM D2.Billing WHERE CAST(SessionEndSchedule AS DATE) = @dateOnly AND DATEPART(HOUR, SessionEndSchedule) = @hourOnly AND TutorId = @tutorId;", connection))
+                using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM D2.TransactionLog WHERE SessionEndSchedule >= @scheduleDate AND TutorId = @tutorId;", connection))
                 {
-                    command.Parameters.AddWithValue("@dateOnly", dateTime.Date);
-                    command.Parameters.AddWithValue("@hourOnly", dateTime.Hour);
-                    command.Parameters.AddWithValue("@tutorId", TemporalData.TutorId);
+                    command.Parameters.Add("@scheduleDate", SqlDbType.DateTime).Value = scheduleTime;
+                    command.Parameters.AddWithValue("@tutorId", IdFetcher.TutorId());
 
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    int count = (command.ExecuteScalar() as int?) ?? 0;
+                    return count > 0;
                 }
             }
         }
@@ -128,6 +135,42 @@ namespace _3_13_25.D2.Classes
                 using (SqlCommand command = new SqlCommand("SELECT StudentName, StudentEmail FROM D2.Students WHERE (@studName IS NULL OR @studName = '' OR @studName = ' ') OR StudentName LIKE @studName", connection))
                 {
                     command.Parameters.AddWithValue("@studName", "%" + studname + "%");
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        dt.AutoGenerateColumns = true;
+                        dt.DataSource = table;
+                    }
+                }
+            }
+        }
+        public static void ShowTutorOfTheSubject(DataGridView dataGridView, string Subject)
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT TutorName, HourlyRate FROM D2.Tutor WHERE (@expertise IS NULL OR @expertise = '' OR @expertise = ' ') OR Expertise LIKE @expertise", connection))
+                {
+                    command.Parameters.AddWithValue("@expertise", "%" + Subject + "%");
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        dataGridView.AutoGenerateColumns = true;
+                        dataGridView.DataSource = table;
+                    }
+                }
+            }
+        }
+        public static void TutorList(DataGridView dt, string Tutor)
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate, InTime, OutTime FROM D2.Tutor WHERE (@item IS NULL OR @item = '' OR @item = ' ') OR TutorName LIKE @item", connection))
+                {
+                    command.Parameters.AddWithValue("@item", "%" + Tutor + "%");
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {

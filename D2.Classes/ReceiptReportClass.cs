@@ -17,13 +17,9 @@ namespace _3_13_25.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.BillingViewPaid WHERE SessionSchedule = @session AND TutorName = @tutor AND Subject = @subject AND StudentName = @student AND TotalFee = @totalFee", connection))
+                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.PresentPaidBilling WHERE TransactionId = @transactionId", connection))
                 {
-                    command.Parameters.AddWithValue("@session", TransactionAndBilling.SessionSchedule);
-                    command.Parameters.AddWithValue("@tutor", TransactionAndBilling.Tutor);
-                    command.Parameters.AddWithValue("@subject", TransactionAndBilling.Subject);
-                    command.Parameters.AddWithValue("@student", TransactionAndBilling.Student);
-                    command.Parameters.AddWithValue("@totalFee", TransactionAndBilling.TotalFee);
+                    command.Parameters.AddWithValue("@transactionId", BillingObj.EnrollmentId);
 
                     DataTable dataTable = new DataTable();
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -31,8 +27,8 @@ namespace _3_13_25.D2.Classes
 
                     receipt.LocalReport.DataSources.Clear();
 
-                    ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dataTable);
-                    ReportParameter StudName = new ReportParameter("StudentName", TransactionAndBilling.Student);
+                    ReportDataSource reportDataSource = new ReportDataSource("PresentPaidPayment", dataTable);
+                    ReportParameter StudName = new ReportParameter("StudentName", BillingObj.Student);
 
                     receipt.LocalReport.ReportPath = "ReceiptReport.rdlc";
                     receipt.LocalReport.DataSources.Add(reportDataSource);

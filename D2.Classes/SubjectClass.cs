@@ -74,24 +74,6 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
-        public static void ShowTutorOfTheSubject(DataGridView dataGridView)
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT TutorName, HourlyRate FROM D2.Tutor WHERE Expertise = @expertise", connection))
-                {
-                    command.Parameters.AddWithValue("@expertise", SubjectObjects.SubjectName);
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dataGridView.AutoGenerateColumns = true;
-                        dataGridView.DataSource = table;
-                    }
-                }
-            }
-        }
 #endregion
     }
 }

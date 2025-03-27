@@ -21,7 +21,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 TemporalData.OutTime = (TimeSpan)selectedRow.Cells["OutTime"].Value;
             }
         }
-        public static void SelectRowDTVStudentList(DataGridView dt)
+        public static void SelectRowDTGVStudentList(DataGridView dt)
         {
             DataGridViewRow selectedRow = dt.Rows[dt.SelectedCells[0].RowIndex];
             if (selectedRow != null)

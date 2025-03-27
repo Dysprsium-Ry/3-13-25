@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DbA2DataSet1" targetNamespace="http://tempuri.org/DbA2DataSet1.xsd" xmlns:mstns="http://tempuri.org/DbA2DataSet1.xsd" xmlns="http://tempuri.org/DbA2DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DbA2ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DbA2ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings._3_13_25.Properties.Settings.GlobalReference.Default.DbA2ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PresentPaidBillingTableAdapter" GeneratorDataComponentClassName="PresentPaidBillingTableAdapter" Name="PresentPaidBilling" UserDataComponentName="PresentPaidBillingTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DbA2ConnectionString (Settings)" DbObjectName="DbA2.D2.PresentPaidBilling" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT TransactionId, Student, Subject, Tutor, SessionSchedule, SessionDuration, SessionEndSchedule, TotalFee, RemainingBalance, PayFee, PaymentStatus FROM D2.PresentPaidBilling</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="TransactionId" DataSetColumn="TransactionId" />
+              <Mapping SourceColumn="Student" DataSetColumn="Student" />
+              <Mapping SourceColumn="Subject" DataSetColumn="Subject" />
+              <Mapping SourceColumn="Tutor" DataSetColumn="Tutor" />
+              <Mapping SourceColumn="SessionSchedule" DataSetColumn="SessionSchedule" />
+              <Mapping SourceColumn="SessionDuration" DataSetColumn="SessionDuration" />
+              <Mapping SourceColumn="SessionEndSchedule" DataSetColumn="SessionEndSchedule" />
+              <Mapping SourceColumn="TotalFee" DataSetColumn="TotalFee" />
+              <Mapping SourceColumn="RemainingBalance" DataSetColumn="RemainingBalance" />
+              <Mapping SourceColumn="PayFee" DataSetColumn="PayFee" />
+              <Mapping SourceColumn="PaymentStatus" DataSetColumn="PaymentStatus" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DbA2DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="DbA2DataSet1" msprop:Generator_DataSetName="DbA2DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PresentPaidBilling" msprop:Generator_RowEvHandlerName="PresentPaidBillingRowChangeEventHandler" msprop:Generator_RowDeletedName="PresentPaidBillingRowDeleted" msprop:Generator_RowDeletingName="PresentPaidBillingRowDeleting" msprop:Generator_RowEvArgName="PresentPaidBillingRowChangeEvent" msprop:Generator_TablePropName="PresentPaidBilling" msprop:Generator_RowChangedName="PresentPaidBillingRowChanged" msprop:Generator_RowChangingName="PresentPaidBillingRowChanging" msprop:Generator_TableClassName="PresentPaidBillingDataTable" msprop:Generator_RowClassName="PresentPaidBillingRow" msprop:Generator_TableVarName="tablePresentPaidBilling" msprop:Generator_UserTableName="PresentPaidBilling">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TransactionId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="TransactionId" msprop:Generator_ColumnPropNameInTable="TransactionIdColumn" msprop:Generator_ColumnVarNameInTable="columnTransactionId" msprop:Generator_UserColumnName="TransactionId" type="xs:long" />
+              <xs:element name="Student" msprop:Generator_ColumnPropNameInRow="Student" msprop:Generator_ColumnPropNameInTable="StudentColumn" msprop:Generator_ColumnVarNameInTable="columnStudent" msprop:Generator_UserColumnName="Student" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Subject" msprop:Generator_ColumnPropNameInRow="Subject" msprop:Generator_ColumnPropNameInTable="SubjectColumn" msprop:Generator_ColumnVarNameInTable="columnSubject" msprop:Generator_UserColumnName="Subject" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Tutor" msprop:Generator_ColumnPropNameInRow="Tutor" msprop:Generator_ColumnPropNameInTable="TutorColumn" msprop:Generator_ColumnVarNameInTable="columnTutor" msprop:Generator_UserColumnName="Tutor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SessionSchedule" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="SessionSchedule" msprop:Generator_ColumnPropNameInTable="SessionScheduleColumn" msprop:Generator_ColumnVarNameInTable="columnSessionSchedule" msprop:Generator_UserColumnName="SessionSchedule" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SessionDuration" msprop:Generator_ColumnPropNameInRow="SessionDuration" msprop:Generator_ColumnPropNameInTable="SessionDurationColumn" msprop:Generator_ColumnVarNameInTable="columnSessionDuration" msprop:Generator_UserColumnName="SessionDuration" type="xs:int" minOccurs="0" />
+              <xs:element name="SessionEndSchedule" msprop:Generator_ColumnPropNameInRow="SessionEndSchedule" msprop:Generator_ColumnPropNameInTable="SessionEndScheduleColumn" msprop:Generator_ColumnVarNameInTable="columnSessionEndSchedule" msprop:Generator_UserColumnName="SessionEndSchedule" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TotalFee" msprop:Generator_ColumnPropNameInRow="TotalFee" msprop:Generator_ColumnPropNameInTable="TotalFeeColumn" msprop:Generator_ColumnVarNameInTable="columnTotalFee" msprop:Generator_UserColumnName="TotalFee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RemainingBalance" msprop:Generator_ColumnPropNameInRow="RemainingBalance" msprop:Generator_ColumnPropNameInTable="RemainingBalanceColumn" msprop:Generator_ColumnVarNameInTable="columnRemainingBalance" msprop:Generator_UserColumnName="RemainingBalance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PayFee" msprop:Generator_ColumnPropNameInRow="PayFee" msprop:Generator_ColumnPropNameInTable="PayFeeColumn" msprop:Generator_ColumnVarNameInTable="columnPayFee" msprop:Generator_UserColumnName="PayFee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PaymentStatus" msprop:Generator_ColumnPropNameInRow="PaymentStatus" msprop:Generator_ColumnPropNameInTable="PaymentStatusColumn" msprop:Generator_ColumnVarNameInTable="columnPaymentStatus" msprop:Generator_UserColumnName="PaymentStatus" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PresentPaidBilling" />
+      <xs:field xpath="mstns:TransactionId" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

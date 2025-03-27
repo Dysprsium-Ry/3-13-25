@@ -148,6 +148,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbA2DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DbA2DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbA2DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="bin\Debug\ReceiptReport.rdlc" />
@@ -173,6 +178,17 @@
     </None>
     <None Include="DbA2DataSet.xss">
       <DependentUpon>DbA2DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DbA2DataSet1.xsc">
+      <DependentUpon>DbA2DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DbA2DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DbA2DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DbA2DataSet1.xss">
+      <DependentUpon>DbA2DataSet1.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

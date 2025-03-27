@@ -6,10 +6,6 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
 {
     public class Objects
     {
-        public class SubjectObjects
-        {
-            public static string SubjectName { get; set; }
-        }
         public class DataId
         {
             public static long StudentId { get; set; }
@@ -100,12 +96,22 @@ namespace BienvenidoOnlineTutorServices.D2.Objects
             public static TimeSpan InTime { get; set; }
             public static TimeSpan OutTime { get; set; }
         }
-        public class TransactionAndBilling
+        public class TransacObj
+        {
+            public static long TransacId { get; set; }
+            public static decimal PayFee { get; set; }
+            public static decimal TotalFee { get; set; }
+            public static decimal RemainingFee { get; set; }
+            public static string Student { get; set; }
+            public static string Subject { get; set; }
+            public static string Tutor { get; set; }
+        }
+        public class BillingObj
         {
             public static long EnrollmentId { get; set; }
             public static long SubjectId { get; set; }
             public static decimal Pay { get; set; }
-            public static decimal PaidFee { get; set; }
+            public static decimal PayFee { get; set; }
             public static decimal RemainingBalance { get; set; }
             public static decimal TotalFee { get; set; }
             public static String Tutor { get; set; }

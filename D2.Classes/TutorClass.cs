@@ -60,7 +60,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate FROM D2.Tutor", connection))
+                using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate, InTime, OutTime FROM D2.Tutor", connection))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {

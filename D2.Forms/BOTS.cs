@@ -2,6 +2,7 @@
 using _3_13_25.D2.IdFetcherClasses;
 using BienvenidoOnlineTutorServices.D2.Classes;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using static BienvenidoOnlineTutorServices.D2.Objects.Objects;
@@ -16,26 +17,33 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             dateTimeValueSetter();
             refresh();
         }
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            reportViewerReceipt.RefreshReport();
+        }
 
         #region Initialization and Refresh
         private void refresh()
         {
             foreach (Control control in this.Controls)
             {
-                if (control is DataGridView dataGridView)
+                if (control is DataGridView dataGridView && dataGridView != null)
                 {
-                    dataGridView.DataSource = null;
+                    dataGridView.Refresh();
+                }
+                else
+                {
+                    ComboBoxEnrollmentSubject.DataSource = SubjectClass.FetchSubjects();
+                    OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
+                    comboBoxExpertise.DataSource = SubjectClass.FetchSubjects();
+                    SubjectClass.FetchSubjects();
+                    TutorClass.ShowTutor(dataGridViewTutorManagement);
+                    SubjectClass.ShowSubjects(dataGridViewSubjects);
+                    BillingClass.ShowBilling(DataGridViewPendingPayment);
+                    BillingClass.ShowPartialBilling(DataGridViewPartialPayment);
+                    BillingClass.ShowPaidBilling(DataGridViewPaidPayment);
                 }
             }
-
-            ComboBoxEnrollmentSubject.DataSource = SubjectClass.FetchSubjects();
-            OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
-            comboBoxExpertise.DataSource = SubjectClass.FetchSubjects();
-            SubjectClass.FetchSubjects();
-            TutorClass.ShowTutor(dataGridViewTutorManagement);
-            SubjectClass.ShowSubjects(dataGridViewSubjects);
-            BillingClass.ShowBilling(dataGridViewPendingBilling);
-            BillingClass.ShowPaidBilling(dataGridViewPayedBilling);
 
             if (TemporalData.SubjectList.Count > 0) { ButtonEnrollStudent.Enabled = true; } else { ButtonEnrollStudent.Enabled = false; }
         }
@@ -186,6 +194,8 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                     BillingClass.TransactionRegistration();
                 }
                 MessageBox.Show("Student enrolled successfully", "Registration Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dataGridViewPreferredSubjects.DataSource = null;
+                TemporalData.SubjectList.Clear();
                 refresh();
             }
             else
@@ -193,7 +203,11 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 MessageBox.Show("Empty registry, aborting operation.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
+        private void TextBoxEnrollmentStudName_TextChanged(object sender, EventArgs e)
+        {
+            OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
+            DataGridViewStudentList.Refresh();
+        }
         private void buttonRegisterPrefSub_Click(object sender, EventArgs e)
         {
             foreach (Control control in tabPageEnroll.Controls)
@@ -205,12 +219,6 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 }
             }
 
-            if (OpsAndCalcs.IfScheduleExist(TimePickerSessionSchedule.Value))
-            {
-                MessageBox.Show("Date and Time is occupied, pick another schedule date.", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
             TemporalData.StudentName = TextBoxEnrollmentStudName.Text;
             TemporalData.StudentEmail = TextBoxStudEmail.Text;
             TemporalData.Subject = ComboBoxEnrollmentSubject.Text;
@@ -218,7 +226,7 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             TemporalData.SessionScheduleTime = TimePickerSessionSchedule.Value.TimeOfDay;
             TemporalData.SessionDuration = int.Parse(textBoxSessionDuration.Text);
 
-            EnrollmentClass.TemporalDataSelectedValue(dataGridViewTutorInSubject);
+            EnrollmentClass.TemporalDataSelectedValue(dataGridViewTutorInTheSubject);
 
             var transactions = new PreferredSubject
             {
@@ -234,9 +242,15 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 HourlyRate = TemporalData.HourlyRate,
                 TotalFee = OpsAndCalcs.CalculateTotalFee(int.Parse(textBoxSessionDuration.Text), TemporalData.HourlyRate),
                 PaymentFee = 0,
-                RemainingFee = OpsAndCalcs.CalculateRemainingFee(TemporalData.HourlyRate, TemporalData.SessionDuration),
-                PaymentStatus = OpsAndCalcs.PaymentStatus(TransactionAndBilling.RemainingBalance, TransactionAndBilling.PaidFee)
+                RemainingFee = OpsAndCalcs.CalculateTotalFee(int.Parse(textBoxSessionDuration.Text), TemporalData.HourlyRate),
+                PaymentStatus = OpsAndCalcs.PaymentStatus(BillingObj.RemainingBalance, BillingObj.PayFee)
             };
+
+            if (OpsAndCalcs.IfScheduleExist(DatePickerSessionSchedule.Value, TimePickerSessionSchedule.Value.TimeOfDay))
+            {
+                MessageBox.Show("Date and Time is occupied, pick another schedule date.", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             if (!TemporalData.SubjectList.Contains(transactions))
             {
@@ -257,11 +271,34 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             }
             refresh();
         }
+        private void DataGridViewStudentList_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < DataGridViewStudentList.Rows.Count)
+            {
+                EnrollmentClass.SelectRowDTGVStudentList(DataGridViewStudentList);
 
+                var studentNameCell = DataGridViewStudentList.Rows[e.RowIndex].Cells["StudentName"].Value;
+                var studentEmailCell = DataGridViewStudentList.Rows[e.RowIndex].Cells["StudentEmail"].Value;
+
+                if (studentNameCell != null && studentEmailCell != null)
+                {
+                    TextBoxEnrollmentStudName.Text = Convert.ToString(studentNameCell);
+                    TextBoxStudEmail.Text = Convert.ToString(studentEmailCell);
+                }
+                else
+                {
+                    MessageBox.Show("Selected row contains invalid data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selected row index is out of range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void comboBoxPreferredSubjects_SelectedValueChanged(object sender, EventArgs e)
         {
             TemporalData.Subject = ComboBoxEnrollmentSubject.Text;
-            EnrollmentClass.ShowTutor(dataGridViewTutorInSubject);
+            EnrollmentClass.ShowTutor(dataGridViewTutorInTheSubject);
         }
 
         private void buttonRemoveSub_Click(object sender, EventArgs e)
@@ -310,6 +347,26 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 MessageBox.Show("Textbox Value is invalid. Action aborted.", "Invalid Action", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+        private void dataGridViewSubjects_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridViewSubjects.Rows.Count)
+            {
+                var Expertise = dataGridViewSubjects.Rows[e.RowIndex].Cells[0].Value;
+
+                if (Expertise != null)
+                {
+                    textBoxSubjectLib.Text = Convert.ToString(Expertise);
+                }
+                else
+                {
+                    MessageBox.Show("Selected row contains invalid data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selected row index is out of range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Tutor Management Event Handlers
@@ -340,11 +397,15 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             TutorClass.ManageTutor();
             refresh();
         }
-
+        private void textBoxTutorName_TextChanged(object sender, EventArgs e)
+        {
+            OpsAndCalcs.TutorList(dataGridViewTutorManagement, textBoxTutorName.Text);
+            dataGridViewTutorManagement.Refresh();
+        }
         private void textBoxTutorinServiceLib_TextChanged(object sender, EventArgs e)
         {
-            SubjectObjects.SubjectName = textBoxSubjectLib.Text;
-            SubjectClass.ShowTutorOfTheSubject(dataGridViewTutorInSubject);
+            OpsAndCalcs.ShowTutorOfTheSubject(dataGridViewTutorPerSubject, textBoxSubjectLib.Text);
+            dataGridViewTutorPerSubject.Refresh();
         }
 
         private void buttonTutorDelete_Click(object sender, EventArgs e)
@@ -359,32 +420,35 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
         #region Billing Management Event Handlers
         private void buttonPaid_Click(object sender, EventArgs e)
         {
-            BillingClass.SelectedValue(dataGridViewPendingBilling);
-            TransactionAndBilling.Pay = decimal.Parse(textBoxPayment.Text);
-            BillingClass.Payment();
-            refresh();
+            foreach (Control control in tabPageBilling.Controls)
+            {
+                if (control is DataGridView datagrid && datagrid.SelectedRows.Count < 0)
+                {
+                    MessageBox.Show("Select a single row before proceeding payment.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+
+            BillingObj.Pay = decimal.Parse(textBoxPayment.Text);
+
+            if (BillingObj.Pay <= BillingObj.RemainingBalance)
+            {
+                BillingClass.Payment();
+                refresh();
+            }
+            else { MessageBox.Show("Pay for the appropriate remaining amount left only", "Excess Pay Fee", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
 
             ReceiptReportClass.ReceiptSetup(reportViewerReceipt);
         }
+        private void DataGridViewPendingPayment_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            BillingClass.SelectedValue(DataGridViewPendingPayment);
+        }
+        private void DataGridViewPartialPayment_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            BillingClass.SelectedValue(DataGridViewPartialPayment);
+        }
         #endregion
-
         #endregion
-
-        private void mainForm_Load(object sender, EventArgs e)
-        {
-            reportViewerReceipt.RefreshReport();
-        }
-
-        private void TextBoxEnrollmentStudName_TextChanged(object sender, EventArgs e)
-        {
-            OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
-        }
-
-        private void DataGridViewStudentList_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            EnrollmentClass.SelectRowDTVStudentList(DataGridViewStudentList);
-            TextBoxEnrollmentStudName.Text = DataGridViewStudentList.Rows[e.RowIndex].Cells["StudentName"].Value.ToString();
-            TextBoxStudEmail.Text = DataGridViewStudentList.Rows[e.RowIndex].Cells["StudentEmail"].Value.ToString();
-        }
     }
 }

@@ -39,15 +39,12 @@ namespace _3_13_25.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("UPDATE D2.Billing SET PaidFee = @payFee, RemainingBalance = @remaining, PaymentStatus = @paymentstatus WHERE SessionSchedule = @sessionSchedule AND Tutor = @tutor AND Subject = @subject AND Student = @student", connection))
+                using (SqlCommand command = new SqlCommand("UPDATE D2.TransactionLog SET PayFee = @payFee, RemainingBalance = @remaining, PaymentStatus = @paymentstatus WHERE TransactionId = @transactionId", connection))
                 {
-                    command.Parameters.AddWithValue("@sessionSchedule", TransactionAndBilling.SessionSchedule);
-                    command.Parameters.AddWithValue("@payFee", OpsAndCalcs.SumPaidFee(TransactionAndBilling.PaidFee, TransactionAndBilling.Pay));
-                    command.Parameters.AddWithValue("@remaining", OpsAndCalcs.CalculateRemainingFee(TransactionAndBilling.TotalFee, OpsAndCalcs.SumPaidFee(TransactionAndBilling.PaidFee, TransactionAndBilling.Pay)));
-                    command.Parameters.AddWithValue("@paymentstatus", OpsAndCalcs.PaymentStatus(TransactionAndBilling.RemainingBalance, TransactionAndBilling.PaidFee));
-                    command.Parameters.AddWithValue("@tutor", TransactionAndBilling.Tutor);
-                    command.Parameters.AddWithValue("@subject", TransactionAndBilling.Subject);
-                    command.Parameters.AddWithValue("@student", TransactionAndBilling.Student);
+                    command.Parameters.AddWithValue("@transactionId", BillingObj.EnrollmentId);
+                    command.Parameters.AddWithValue("@payFee", OpsAndCalcs.SumPaidFee(BillingObj.PayFee, BillingObj.Pay));
+                    command.Parameters.AddWithValue("@remaining", OpsAndCalcs.CalculateRemainingFee(BillingObj.TotalFee, OpsAndCalcs.SumPaidFee(BillingObj.PayFee, BillingObj.Pay)));
+                    command.Parameters.AddWithValue("@paymentstatus", OpsAndCalcs.PaymentStatus(OpsAndCalcs.SumPaidFee(BillingObj.PayFee, BillingObj.Pay), BillingObj.TotalFee));
                     command.ExecuteNonQuery();
                 }
             }
@@ -59,7 +56,23 @@ namespace _3_13_25.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.TransactionBilling", connection))
+                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.PresentPendingBilling", connection))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        dataGridView.AutoGenerateColumns = true;
+                        dataGridView.DataSource = table;
+                    }
+                }
+            }
+        }
+        public static void ShowPartialBilling(DataGridView dataGridView)
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.PresentPartialBilling", connection))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
@@ -75,7 +88,7 @@ namespace _3_13_25.D2.Classes
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.TransactionBillingPaid", connection))
+                using (SqlCommand command = new SqlCommand("SELECT * FROM D2.PresentPaidBilling", connection))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
@@ -93,13 +106,13 @@ namespace _3_13_25.D2.Classes
 
             if (selectedRow != null)
             {
-                TransactionAndBilling.SessionSchedule = Convert.ToDateTime(selectedRow.Cells[0].Value ?? 0);
-                TransactionAndBilling.Tutor = Convert.ToString(selectedRow.Cells[1].Value ?? null);
-                TransactionAndBilling.Subject = Convert.ToString(selectedRow.Cells[2].Value ?? null);
-                TransactionAndBilling.Student = Convert.ToString(selectedRow.Cells[3].Value ?? null);
-                TransactionAndBilling.TotalFee = Convert.ToDecimal(selectedRow.Cells[5].Value ?? 0);
-                TransactionAndBilling.PaidFee = Convert.ToDecimal(selectedRow.Cells[6].Value ?? 0);
-                TransactionAndBilling.RemainingBalance = Convert.ToDecimal(selectedRow.Cells[7].Value ?? 0);
+                BillingObj.EnrollmentId = Convert.ToInt64(selectedRow.Cells["TransactionId"].Value ?? 0);
+                BillingObj.Student = Convert.ToString(selectedRow.Cells["Student"].Value ?? null);
+                BillingObj.Subject = Convert.ToString(selectedRow.Cells["Subject"].Value ?? null);
+                BillingObj.Tutor = Convert.ToString(selectedRow.Cells["Tutor"].Value ?? null);
+                BillingObj.TotalFee = Convert.ToDecimal(selectedRow.Cells["TotalFee"].Value ?? 0);
+                BillingObj.PayFee = Convert.ToDecimal(selectedRow.Cells["PayFee"].Value ?? 0);
+                BillingObj.RemainingBalance = Convert.ToDecimal(selectedRow.Cells["RemainingBalance"].Value ?? 0);
             }
         }
         #endregion
