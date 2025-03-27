@@ -78,6 +78,8 @@
             this.labelInventoryService = new System.Windows.Forms.Label();
             this.dataGridViewSubjects = new System.Windows.Forms.DataGridView();
             this.tabPageBilling = new System.Windows.Forms.TabPage();
+            this.labelPartialPayment = new System.Windows.Forms.Label();
+            this.DataGridViewPartialPayment = new System.Windows.Forms.DataGridView();
             this.labelPayment = new System.Windows.Forms.Label();
             this.textBoxPayment = new System.Windows.Forms.TextBox();
             this.labelPayedPayments = new System.Windows.Forms.Label();
@@ -87,9 +89,7 @@
             this.DataGridViewPendingPayment = new System.Windows.Forms.DataGridView();
             this.tabPageReceiptReport = new System.Windows.Forms.TabPage();
             this.reportViewerReceipt = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.labelPartialPayment = new System.Windows.Forms.Label();
-            this.DataGridViewPartialPayment = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SearchBoxBilling = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageEnroll.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewStudentList)).BeginInit();
@@ -103,10 +103,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTutorPerSubject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSubjects)).BeginInit();
             this.tabPageBilling.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPartialPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPaidPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPendingPayment)).BeginInit();
             this.tabPageReceiptReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPartialPayment)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -693,7 +693,7 @@
             // 
             // tabPageBilling
             // 
-            this.tabPageBilling.Controls.Add(this.textBox1);
+            this.tabPageBilling.Controls.Add(this.SearchBoxBilling);
             this.tabPageBilling.Controls.Add(this.labelPartialPayment);
             this.tabPageBilling.Controls.Add(this.DataGridViewPartialPayment);
             this.tabPageBilling.Controls.Add(this.labelPayment);
@@ -709,6 +709,36 @@
             this.tabPageBilling.TabIndex = 4;
             this.tabPageBilling.Text = "Billing Management";
             this.tabPageBilling.UseVisualStyleBackColor = true;
+            // 
+            // labelPartialPayment
+            // 
+            this.labelPartialPayment.AutoSize = true;
+            this.labelPartialPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPartialPayment.Location = new System.Drawing.Point(3, 192);
+            this.labelPartialPayment.Name = "labelPartialPayment";
+            this.labelPartialPayment.Size = new System.Drawing.Size(174, 25);
+            this.labelPartialPayment.TabIndex = 8;
+            this.labelPartialPayment.Text = "Partial Payments";
+            // 
+            // DataGridViewPartialPayment
+            // 
+            this.DataGridViewPartialPayment.AllowUserToAddRows = false;
+            this.DataGridViewPartialPayment.AllowUserToDeleteRows = false;
+            this.DataGridViewPartialPayment.AllowUserToResizeColumns = false;
+            this.DataGridViewPartialPayment.AllowUserToResizeRows = false;
+            this.DataGridViewPartialPayment.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.DataGridViewPartialPayment.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.DataGridViewPartialPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewPartialPayment.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DataGridViewPartialPayment.Location = new System.Drawing.Point(8, 220);
+            this.DataGridViewPartialPayment.Name = "DataGridViewPartialPayment";
+            this.DataGridViewPartialPayment.ReadOnly = true;
+            this.DataGridViewPartialPayment.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.DataGridViewPartialPayment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGridViewPartialPayment.ShowEditingIcon = false;
+            this.DataGridViewPartialPayment.Size = new System.Drawing.Size(1086, 110);
+            this.DataGridViewPartialPayment.TabIndex = 7;
+            this.DataGridViewPartialPayment.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewPartialPayment_RowHeaderMouseClick);
             // 
             // labelPayment
             // 
@@ -812,50 +842,22 @@
             // 
             // reportViewerReceipt
             // 
+            this.reportViewerReceipt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.reportViewerReceipt.Location = new System.Drawing.Point(194, 20);
             this.reportViewerReceipt.Name = "reportViewerReceipt";
             this.reportViewerReceipt.ServerReport.BearerToken = null;
             this.reportViewerReceipt.Size = new System.Drawing.Size(713, 495);
             this.reportViewerReceipt.TabIndex = 0;
+            this.reportViewerReceipt.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             // 
-            // labelPartialPayment
+            // SearchBoxBilling
             // 
-            this.labelPartialPayment.AutoSize = true;
-            this.labelPartialPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPartialPayment.Location = new System.Drawing.Point(3, 192);
-            this.labelPartialPayment.Name = "labelPartialPayment";
-            this.labelPartialPayment.Size = new System.Drawing.Size(174, 25);
-            this.labelPartialPayment.TabIndex = 8;
-            this.labelPartialPayment.Text = "Partial Payments";
-            // 
-            // DataGridViewPartialPayment
-            // 
-            this.DataGridViewPartialPayment.AllowUserToAddRows = false;
-            this.DataGridViewPartialPayment.AllowUserToDeleteRows = false;
-            this.DataGridViewPartialPayment.AllowUserToResizeColumns = false;
-            this.DataGridViewPartialPayment.AllowUserToResizeRows = false;
-            this.DataGridViewPartialPayment.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.DataGridViewPartialPayment.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.DataGridViewPartialPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewPartialPayment.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DataGridViewPartialPayment.Location = new System.Drawing.Point(8, 220);
-            this.DataGridViewPartialPayment.Name = "DataGridViewPartialPayment";
-            this.DataGridViewPartialPayment.ReadOnly = true;
-            this.DataGridViewPartialPayment.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.DataGridViewPartialPayment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridViewPartialPayment.ShowEditingIcon = false;
-            this.DataGridViewPartialPayment.Size = new System.Drawing.Size(1086, 110);
-            this.DataGridViewPartialPayment.TabIndex = 7;
-            this.DataGridViewPartialPayment.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewPartialPayment_RowHeaderMouseClick);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(856, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(226, 26);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.SearchBoxBilling.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchBoxBilling.Location = new System.Drawing.Point(788, 23);
+            this.SearchBoxBilling.Name = "SearchBoxBilling";
+            this.SearchBoxBilling.Size = new System.Drawing.Size(306, 33);
+            this.SearchBoxBilling.TabIndex = 9;
+            this.SearchBoxBilling.TextChanged += new System.EventHandler(this.SearchBoxBilling_TextChanged);
             // 
             // MainForm
             // 
@@ -887,10 +889,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSubjects)).EndInit();
             this.tabPageBilling.ResumeLayout(false);
             this.tabPageBilling.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPartialPayment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPaidPayment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPendingPayment)).EndInit();
             this.tabPageReceiptReport.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPartialPayment)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -958,6 +960,6 @@
         private System.Windows.Forms.DataGridView DataGridViewStudentList;
         private System.Windows.Forms.Label labelPartialPayment;
         private System.Windows.Forms.DataGridView DataGridViewPartialPayment;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox SearchBoxBilling;
     }
 }

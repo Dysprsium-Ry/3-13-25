@@ -16,10 +16,12 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             InitializeComponent();
             dateTimeValueSetter();
             refresh();
+            PlaceholderSetter(SearchBoxBilling);
         }
         private void mainForm_Load(object sender, EventArgs e)
         {
             reportViewerReceipt.RefreshReport();
+            PlaceholderForSearchBox(SearchBoxBilling);
         }
 
         #region Initialization and Refresh
@@ -101,6 +103,34 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 if (dateTimePickerEndTime.Value > maxDateTime)
                 {
                     dateTimePickerEndTime.Value = maxDateTime;
+                }
+            };
+        }
+
+        private void PlaceholderSetter(TextBox textBox)
+        {
+            textBox.Text = "Search";
+            textBox.ForeColor = Color.Gray;
+        }
+
+        private void PlaceholderForSearchBox(TextBox textBox)
+        {
+            textBox.GotFocus += (s, e) =>
+            {
+                if (textBox.Text == "Search")
+                {
+                    textBox.Clear();
+                    textBox.ForeColor = Color.Black;
+                }
+            };
+
+            textBox.LostFocus += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text) || textBox.Text == "Search")
+                {
+                    textBox.Clear();
+                    textBox.Text = "Search";
+                    textBox.ForeColor = Color.Gray;
                 }
             };
         }
@@ -440,15 +470,25 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
 
             ReceiptReportClass.ReceiptSetup(reportViewerReceipt);
         }
+
         private void DataGridViewPendingPayment_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             BillingClass.SelectedValue(DataGridViewPendingPayment);
         }
+
         private void DataGridViewPartialPayment_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             BillingClass.SelectedValue(DataGridViewPartialPayment);
         }
+
+        private void SearchBoxBilling_TextChanged(object sender, EventArgs e)
+        {
+            OpsAndCalcs.BillingSearch(DataGridViewPendingPayment, SearchBoxBilling.Text);
+            OpsAndCalcs.BillingSearch(DataGridViewPartialPayment, SearchBoxBilling.Text);
+            OpsAndCalcs.BillingSearch(DataGridViewPaidPayment, SearchBoxBilling.Text);
+        }
         #endregion
+
         #endregion
     }
 }

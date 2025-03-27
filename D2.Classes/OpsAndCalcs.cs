@@ -182,6 +182,25 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
+        public static void BillingSearch(DataGridView dt, string Tutor)
+        {
+            using (SqlConnection connection = DatabaseConnection.Establish())
+            {
+                using (SqlCommand command = new SqlCommand("D2.SearchTransactionLogs", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@SearchText", "%" + Tutor + "%");
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        dt.AutoGenerateColumns = true;
+                        dt.DataSource = table;
+                    }
+                }
+            }
+        }
         
         #endregion
     }
