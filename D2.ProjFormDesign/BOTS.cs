@@ -1,5 +1,7 @@
 ﻿using _3_13_25.D2.Classes;
+using _3_13_25.D2.DbConn;
 using _3_13_25.D2.IdFetcherClasses;
+using _3_13_25.D2.QueryStorage;
 using BienvenidoOnlineTutorServices.D2.Classes;
 using System;
 using System.Drawing;
@@ -36,10 +38,10 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 else
                 {
                     ComboBoxEnrollmentSubject.DataSource = SubjectClass.FetchSubjects();
-                    OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
+                    OpsAndCalcs.SearchBar(DataGridViewStudentList, Querys.studListSbar, TextBoxEnrollmentStudName.Text);
                     comboBoxExpertise.DataSource = SubjectClass.FetchSubjects();
                     SubjectClass.FetchSubjects();
-                    TutorClass.ShowTutor(dataGridViewTutorManagement);
+                    DtEstablisher.TCDispTut(dataGridViewTutorManagement);
                     SubjectClass.ShowSubjects(dataGridViewSubjects);
                     BillingClass.ShowBilling(DataGridViewPendingPayment);
                     BillingClass.ShowPartialBilling(DataGridViewPartialPayment);
@@ -235,7 +237,8 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
         }
         private void TextBoxEnrollmentStudName_TextChanged(object sender, EventArgs e)
         {
-            OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
+            //OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
+            OpsAndCalcs.SearchBar(DataGridViewStudentList, Querys.studListSbar, TextBoxEnrollmentStudName.Text);
             DataGridViewStudentList.Refresh();
         }
         private void buttonRegisterPrefSub_Click(object sender, EventArgs e)
@@ -328,7 +331,7 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
         private void comboBoxPreferredSubjects_SelectedValueChanged(object sender, EventArgs e)
         {
             TemporalData.Subject = ComboBoxEnrollmentSubject.Text;
-            EnrollmentClass.ShowTutor(dataGridViewTutorInTheSubject);
+            DtEstablisher.ECDispTut(dataGridViewTutorInTheSubject, Querys.ECDispTut, TemporalData.Subject);
         }
 
         private void buttonRemoveSub_Click(object sender, EventArgs e)
@@ -427,14 +430,16 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
             TutorClass.ManageTutor();
             refresh();
         }
+
         private void textBoxTutorName_TextChanged(object sender, EventArgs e)
         {
-            OpsAndCalcs.TutorList(dataGridViewTutorManagement, textBoxTutorName.Text);
+            OpsAndCalcs.SearchBar(dataGridViewTutorManagement, Querys.tutListSbar, textBoxTutorName.Text);
             dataGridViewTutorManagement.Refresh();
         }
+
         private void textBoxTutorinServiceLib_TextChanged(object sender, EventArgs e)
         {
-            OpsAndCalcs.ShowTutorOfTheSubject(dataGridViewTutorPerSubject, textBoxSubjectLib.Text);
+            OpsAndCalcs.SearchBar(dataGridViewTutorPerSubject, Querys.tutSubSBar, textBoxSubjectLib.Text);
             dataGridViewTutorPerSubject.Refresh();
         }
 
@@ -483,9 +488,9 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
 
         private void SearchBoxBilling_TextChanged(object sender, EventArgs e)
         {
-            OpsAndCalcs.BillingSearch(DataGridViewPendingPayment, SearchBoxBilling.Text);
-            OpsAndCalcs.BillingSearch(DataGridViewPartialPayment, SearchBoxBilling.Text);
-            OpsAndCalcs.BillingSearch(DataGridViewPaidPayment, SearchBoxBilling.Text);
+            //OpsAndCalcs.BillingSearchPending(DataGridViewPendingPayment, SearchBoxBilling.Text);
+            //OpsAndCalcs.BillingSearchPartial(DataGridViewPartialPayment, SearchBoxBilling.Text);
+            //OpsAndCalcs.BillingSearchPaid(DataGridViewPaidPayment, SearchBoxBilling.Text);
         }
         #endregion
 

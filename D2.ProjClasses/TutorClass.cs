@@ -15,6 +15,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
     public class TutorClass
     {
         #region function
+
         public static void ManageTutor()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -31,6 +32,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 }
             }
         }
+
         public static void DeleteTutor()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -42,6 +44,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 }
             }
         }
+
         public static bool CheckTutor()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -53,44 +56,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 }
             }
         }
-        #endregion
 
-        #region DataGridViewProvider
-        public static void ShowTutor(DataGridView dataGridView)
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate, InTime, OutTime FROM D2.Tutor", connection))
-                {
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dataGridView.AutoGenerateColumns = true;
-                        dataGridView.DataSource = table;
-                    }
-                }
-            }
-        }
-
-        //public static void DispaySubjectTutor(DataGridView dataGridView)
-        //{
-        //    using (SqlConnection connection = DatabaseConnection.Establish())
-        //    {
-        //        using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate FROM D2.Tutor WHERE Subject = @subject", connection))
-        //        {
-        //            command.Parameters.AddWithValue("@subject", TutorObjects.Expertise);
-
-        //            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-        //            {
-        //                DataTable table = new DataTable();
-        //                adapter.Fill(table);
-        //                dataGridView.AutoGenerateColumns = true;
-        //                dataGridView.DataSource = table;
-        //            }
-        //        }
-        //    }
-        //}
         #endregion
     }
 }

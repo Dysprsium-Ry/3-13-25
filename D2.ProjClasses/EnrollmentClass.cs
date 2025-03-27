@@ -21,6 +21,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 TemporalData.OutTime = (TimeSpan)selectedRow.Cells["OutTime"].Value;
             }
         }
+
         public static void SelectRowDTGVStudentList(DataGridView dt)
         {
             DataGridViewRow selectedRow = dt.Rows[dt.SelectedCells[0].RowIndex];
@@ -30,6 +31,7 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                 TemporalData.StudentEmail = selectedRow.Cells["StudentEmail"].Value.ToString();
             }
         }
+
         public static void EnrollStudent()
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
@@ -39,45 +41,6 @@ namespace BienvenidoOnlineTutorServices.D2.Classes
                     command.Parameters.AddWithValue("@name", TemporalData.StudentName);
                     command.Parameters.AddWithValue("@email", TemporalData.StudentEmail);
                     command.ExecuteNonQuery();
-                }
-            }
-        }
-        #endregion
-
-        #region DataGridViewProvider
-        public static void ShowTutor(DataGridView dataGridView)
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT TutorName, HourlyRate, InTime, OutTime FROM D2.Tutor WHERE Expertise = @expertise", connection))
-                {
-                    command.Parameters.AddWithValue("@expertise", TemporalData.Subject);
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dataGridView.AutoGenerateColumns = true;
-                        dataGridView.DataSource = table;
-                    }
-                }
-            }
-        }
-        public static void ShowStudent(DataGridView dataGridView)
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT StudentName, StudentEmail FROM D2.Students WHERE StudentName = @studName", connection))
-                {
-                    command.Parameters.AddWithValue("@studName", TemporalData.StudentName);
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dataGridView.AutoGenerateColumns = true;
-                        dataGridView.DataSource = table;
-                    }
                 }
             }
         }

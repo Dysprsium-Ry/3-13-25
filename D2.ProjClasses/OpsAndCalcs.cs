@@ -128,13 +128,14 @@ namespace _3_13_25.D2.Classes
 
 
         #region SearchBox
-        public static void StudentList(DataGridView dt, string studname)
+
+        public static void SearchBar(DataGridView dt, string query, string item)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT StudentName, StudentEmail FROM D2.Students WHERE (@studName IS NULL OR @studName = '' OR @studName = ' ') OR StudentName LIKE @studName", connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@studName", "%" + studname + "%");
+                    command.Parameters.AddWithValue("@item", "%" + item + "%");
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
@@ -146,47 +147,12 @@ namespace _3_13_25.D2.Classes
                 }
             }
         }
-        public static void ShowTutorOfTheSubject(DataGridView dataGridView, string Subject)
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("SELECT TutorName, HourlyRate FROM D2.Tutor WHERE (@expertise IS NULL OR @expertise = '' OR @expertise = ' ') OR Expertise LIKE @expertise", connection))
-                {
-                    command.Parameters.AddWithValue("@expertise", "%" + Subject + "%");
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dataGridView.AutoGenerateColumns = true;
-                        dataGridView.DataSource = table;
-                    }
-                }
-            }
-        }
-        public static void TutorList(DataGridView dt, string Tutor)
+        public static void SearchingBilling(DataGridView dt, string Tutor)
         {
             using (SqlConnection connection = DatabaseConnection.Establish())
             {
-                using (SqlCommand command = new SqlCommand("SELECT TutorName, Expertise, HourlyRate, InTime, OutTime FROM D2.Tutor WHERE (@item IS NULL OR @item = '' OR @item = ' ') OR TutorName LIKE @item", connection))
-                {
-                    command.Parameters.AddWithValue("@item", "%" + Tutor + "%");
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dt.AutoGenerateColumns = true;
-                        dt.DataSource = table;
-                    }
-                }
-            }
-        }
-        public static void BillingSearch(DataGridView dt, string Tutor)
-        {
-            using (SqlConnection connection = DatabaseConnection.Establish())
-            {
-                using (SqlCommand command = new SqlCommand("D2.SearchTransactionLogs", connection))
+                using (SqlCommand command = new SqlCommand("D2.SearchTransactionLogsForPending", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@SearchText", "%" + Tutor + "%");
