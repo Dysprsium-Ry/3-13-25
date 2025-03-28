@@ -245,10 +245,16 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
         {
             foreach (Control control in tabPageEnroll.Controls)
             {
-                if (control is TextBox textBox && string.IsNullOrWhiteSpace(textBox.Text) && textBox != textBoxOverallTotalFee)
+                if (control is Panel panel)
                 {
-                    MessageBox.Show("Field cannot be empty", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
+                    foreach (Control childControl in panel.Controls)
+                    {
+                        if (childControl is TextBox textBox && string.IsNullOrWhiteSpace(textBox.Text) && textBox != textBoxOverallTotalFee)
+                        {
+                            MessageBox.Show("Field cannot be empty", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return;
+                        }
+                    }
                 }
             }
 
@@ -287,7 +293,7 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
 
             if (!TemporalData.SubjectList.Contains(transactions))
             {
-                bool exist = TemporalData.SubjectList.Any(b => b.SessionScheduleDate >= TimePickerSessionSchedule.Value.Date);
+                bool exist = TemporalData.SubjectList.Any(b => TimePickerSessionSchedule.Value <= b.SessionEndSchedule);
 
                 if (exist)
                 {
