@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label firstNameLabel;
+            System.Windows.Forms.Label lastNameLabel;
+            System.Windows.Forms.Label studentEmailLabel;
+            System.Windows.Forms.Label studentNameLabel;
+            System.Windows.Forms.Label studIdLabel;
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageEnroll = new System.Windows.Forms.TabPage();
-            this.labelStudentList = new System.Windows.Forms.Label();
-            this.DataGridViewStudentList = new System.Windows.Forms.DataGridView();
-            this.PanelSubjectEnrollment = new System.Windows.Forms.Panel();
             this.ComboBoxEnrollmentSubject = new System.Windows.Forms.ComboBox();
             this.labelSubjects = new System.Windows.Forms.Label();
             this.labelOverallTotalFee = new System.Windows.Forms.Label();
@@ -42,13 +45,11 @@
             this.TimePickerSessionSchedule = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.PanelStudentInfo = new System.Windows.Forms.Panel();
             this.TextBoxEnrollmentStudName = new System.Windows.Forms.TextBox();
             this.TextBoxStudEmail = new System.Windows.Forms.TextBox();
             this.labelStudentName = new System.Windows.Forms.Label();
             this.labelStudentEmail = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lablePreferredSubjects = new System.Windows.Forms.Label();
             this.dataGridViewTutorInTheSubject = new System.Windows.Forms.DataGridView();
             this.buttonRegisterPrefSub = new System.Windows.Forms.Button();
             this.buttonRemoveSub = new System.Windows.Forms.Button();
@@ -90,11 +91,24 @@
             this.DataGridViewPendingPayment = new System.Windows.Forms.DataGridView();
             this.tabPageReceiptReport = new System.Windows.Forms.TabPage();
             this.reportViewerReceipt = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.LabelTransactionID = new System.Windows.Forms.Label();
+            this.TextBoxTransactionID = new System.Windows.Forms.TextBox();
+            this.tabPageStudentEnrollment = new System.Windows.Forms.TabPage();
+            this.DataGridViewStudentList = new System.Windows.Forms.DataGridView();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.firstNameTextBox = new System.Windows.Forms.TextBox();
+            this.lastNameTextBox = new System.Windows.Forms.TextBox();
+            this.studentEmailTextBox = new System.Windows.Forms.TextBox();
+            this.studentNameTextBox = new System.Windows.Forms.TextBox();
+            this.studIdTextBox = new System.Windows.Forms.TextBox();
+            this.ButtonRegisterStudent = new System.Windows.Forms.Button();
+            firstNameLabel = new System.Windows.Forms.Label();
+            lastNameLabel = new System.Windows.Forms.Label();
+            studentEmailLabel = new System.Windows.Forms.Label();
+            studentNameLabel = new System.Windows.Forms.Label();
+            studIdLabel = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPageEnroll.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewStudentList)).BeginInit();
-            this.PanelSubjectEnrollment.SuspendLayout();
-            this.PanelStudentInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTutorInTheSubject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreferredSubjects)).BeginInit();
             this.tabPageTutorRegistration.SuspendLayout();
@@ -107,11 +121,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPaidPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPendingPayment)).BeginInit();
             this.tabPageReceiptReport.SuspendLayout();
+            this.tabPageStudentEnrollment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewStudentList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabPageEnroll);
+            this.tabControlMain.Controls.Add(this.tabPageStudentEnrollment);
             this.tabControlMain.Controls.Add(this.tabPageTutorRegistration);
             this.tabControlMain.Controls.Add(this.tabPageSubjectLibrary);
             this.tabControlMain.Controls.Add(this.tabPageBilling);
@@ -122,233 +140,177 @@
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(1110, 568);
-            this.tabControlMain.TabIndex = 2;
+            this.tabControlMain.TabIndex = 0;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
             // tabPageEnroll
             // 
-            this.tabPageEnroll.Controls.Add(this.labelStudentList);
-            this.tabPageEnroll.Controls.Add(this.DataGridViewStudentList);
-            this.tabPageEnroll.Controls.Add(this.PanelSubjectEnrollment);
-            this.tabPageEnroll.Controls.Add(this.PanelStudentInfo);
-            this.tabPageEnroll.Controls.Add(this.label1);
-            this.tabPageEnroll.Controls.Add(this.lablePreferredSubjects);
-            this.tabPageEnroll.Controls.Add(this.dataGridViewTutorInTheSubject);
+            this.tabPageEnroll.Controls.Add(this.ComboBoxEnrollmentSubject);
+            this.tabPageEnroll.Controls.Add(this.labelSubjects);
+            this.tabPageEnroll.Controls.Add(this.TextBoxStudEmail);
+            this.tabPageEnroll.Controls.Add(this.TextBoxTransactionID);
+            this.tabPageEnroll.Controls.Add(this.textBoxSessionDuration);
+            this.tabPageEnroll.Controls.Add(this.DatePickerSessionSchedule);
+            this.tabPageEnroll.Controls.Add(this.label2);
+            this.tabPageEnroll.Controls.Add(this.labelOverallTotalFee);
             this.tabPageEnroll.Controls.Add(this.buttonRegisterPrefSub);
+            this.tabPageEnroll.Controls.Add(this.TimePickerSessionSchedule);
             this.tabPageEnroll.Controls.Add(this.buttonRemoveSub);
+            this.tabPageEnroll.Controls.Add(this.labelStudentEmail);
             this.tabPageEnroll.Controls.Add(this.ButtonEnrollStudent);
+            this.tabPageEnroll.Controls.Add(this.label3);
+            this.tabPageEnroll.Controls.Add(this.TextBoxEnrollmentStudName);
+            this.tabPageEnroll.Controls.Add(this.textBoxOverallTotalFee);
+            this.tabPageEnroll.Controls.Add(this.LabelTransactionID);
+            this.tabPageEnroll.Controls.Add(this.labelStudentName);
+            this.tabPageEnroll.Controls.Add(this.label1);
+            this.tabPageEnroll.Controls.Add(this.dataGridViewTutorInTheSubject);
             this.tabPageEnroll.Controls.Add(this.dataGridViewPreferredSubjects);
             this.tabPageEnroll.Location = new System.Drawing.Point(4, 25);
             this.tabPageEnroll.Name = "tabPageEnroll";
             this.tabPageEnroll.Size = new System.Drawing.Size(1102, 539);
             this.tabPageEnroll.TabIndex = 2;
-            this.tabPageEnroll.Text = "Student Enrollment";
+            this.tabPageEnroll.Text = "Subject Enrollment";
             this.tabPageEnroll.UseVisualStyleBackColor = true;
-            // 
-            // labelStudentList
-            // 
-            this.labelStudentList.AutoSize = true;
-            this.labelStudentList.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStudentList.Location = new System.Drawing.Point(14, 196);
-            this.labelStudentList.Name = "labelStudentList";
-            this.labelStudentList.Size = new System.Drawing.Size(106, 24);
-            this.labelStudentList.TabIndex = 42;
-            this.labelStudentList.Text = "Student List";
-            // 
-            // DataGridViewStudentList
-            // 
-            this.DataGridViewStudentList.AllowUserToAddRows = false;
-            this.DataGridViewStudentList.AllowUserToDeleteRows = false;
-            this.DataGridViewStudentList.AllowUserToResizeColumns = false;
-            this.DataGridViewStudentList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DataGridViewStudentList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.DataGridViewStudentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewStudentList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DataGridViewStudentList.Location = new System.Drawing.Point(18, 223);
-            this.DataGridViewStudentList.Name = "DataGridViewStudentList";
-            this.DataGridViewStudentList.ReadOnly = true;
-            this.DataGridViewStudentList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.DataGridViewStudentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridViewStudentList.ShowEditingIcon = false;
-            this.DataGridViewStudentList.Size = new System.Drawing.Size(476, 115);
-            this.DataGridViewStudentList.TabIndex = 41;
-            this.DataGridViewStudentList.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewStudentList_RowHeaderMouseClick);
-            // 
-            // PanelSubjectEnrollment
-            // 
-            this.PanelSubjectEnrollment.Controls.Add(this.ComboBoxEnrollmentSubject);
-            this.PanelSubjectEnrollment.Controls.Add(this.labelSubjects);
-            this.PanelSubjectEnrollment.Controls.Add(this.labelOverallTotalFee);
-            this.PanelSubjectEnrollment.Controls.Add(this.DatePickerSessionSchedule);
-            this.PanelSubjectEnrollment.Controls.Add(this.textBoxOverallTotalFee);
-            this.PanelSubjectEnrollment.Controls.Add(this.textBoxSessionDuration);
-            this.PanelSubjectEnrollment.Controls.Add(this.TimePickerSessionSchedule);
-            this.PanelSubjectEnrollment.Controls.Add(this.label3);
-            this.PanelSubjectEnrollment.Controls.Add(this.label2);
-            this.PanelSubjectEnrollment.Location = new System.Drawing.Point(311, 18);
-            this.PanelSubjectEnrollment.Name = "PanelSubjectEnrollment";
-            this.PanelSubjectEnrollment.Size = new System.Drawing.Size(592, 160);
-            this.PanelSubjectEnrollment.TabIndex = 40;
             // 
             // ComboBoxEnrollmentSubject
             // 
             this.ComboBoxEnrollmentSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxEnrollmentSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBoxEnrollmentSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxEnrollmentSubject.FormattingEnabled = true;
-            this.ComboBoxEnrollmentSubject.Location = new System.Drawing.Point(12, 36);
+            this.ComboBoxEnrollmentSubject.Location = new System.Drawing.Point(160, 258);
             this.ComboBoxEnrollmentSubject.Name = "ComboBoxEnrollmentSubject";
-            this.ComboBoxEnrollmentSubject.Size = new System.Drawing.Size(234, 33);
-            this.ComboBoxEnrollmentSubject.TabIndex = 30;
+            this.ComboBoxEnrollmentSubject.Size = new System.Drawing.Size(291, 28);
+            this.ComboBoxEnrollmentSubject.TabIndex = 1;
             this.ComboBoxEnrollmentSubject.SelectedValueChanged += new System.EventHandler(this.comboBoxPreferredSubjects_SelectedValueChanged);
             // 
             // labelSubjects
             // 
             this.labelSubjects.AutoSize = true;
-            this.labelSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSubjects.Location = new System.Drawing.Point(7, 8);
+            this.labelSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSubjects.Location = new System.Drawing.Point(79, 261);
             this.labelSubjects.Name = "labelSubjects";
-            this.labelSubjects.Size = new System.Drawing.Size(95, 25);
-            this.labelSubjects.TabIndex = 31;
-            this.labelSubjects.Text = "Subjects";
+            this.labelSubjects.Size = new System.Drawing.Size(75, 20);
+            this.labelSubjects.TabIndex = 0;
+            this.labelSubjects.Text = "Subjects:";
             // 
             // labelOverallTotalFee
             // 
             this.labelOverallTotalFee.AutoSize = true;
-            this.labelOverallTotalFee.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOverallTotalFee.Location = new System.Drawing.Point(287, 78);
+            this.labelOverallTotalFee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOverallTotalFee.Location = new System.Drawing.Point(30, 180);
             this.labelOverallTotalFee.Name = "labelOverallTotalFee";
-            this.labelOverallTotalFee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.labelOverallTotalFee.Size = new System.Drawing.Size(165, 25);
-            this.labelOverallTotalFee.TabIndex = 35;
-            this.labelOverallTotalFee.Text = "OverallTotalFee";
-            this.labelOverallTotalFee.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelOverallTotalFee.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelOverallTotalFee.Size = new System.Drawing.Size(124, 20);
+            this.labelOverallTotalFee.TabIndex = 4;
+            this.labelOverallTotalFee.Text = "OverallTotalFee:";
+            this.labelOverallTotalFee.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // DatePickerSessionSchedule
             // 
-            this.DatePickerSessionSchedule.CustomFormat = "MMM dd yyyy     hh:mm tt";
-            this.DatePickerSessionSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DatePickerSessionSchedule.CustomFormat = "MMM dd yyyy";
+            this.DatePickerSessionSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DatePickerSessionSchedule.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DatePickerSessionSchedule.Location = new System.Drawing.Point(287, 40);
+            this.DatePickerSessionSchedule.Location = new System.Drawing.Point(160, 135);
             this.DatePickerSessionSchedule.Name = "DatePickerSessionSchedule";
-            this.DatePickerSessionSchedule.Size = new System.Drawing.Size(145, 29);
-            this.DatePickerSessionSchedule.TabIndex = 38;
+            this.DatePickerSessionSchedule.Size = new System.Drawing.Size(140, 26);
+            this.DatePickerSessionSchedule.TabIndex = 5;
             // 
             // textBoxOverallTotalFee
             // 
             this.textBoxOverallTotalFee.Enabled = false;
-            this.textBoxOverallTotalFee.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxOverallTotalFee.Location = new System.Drawing.Point(287, 106);
+            this.textBoxOverallTotalFee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxOverallTotalFee.Location = new System.Drawing.Point(160, 177);
             this.textBoxOverallTotalFee.Name = "textBoxOverallTotalFee";
-            this.textBoxOverallTotalFee.Size = new System.Drawing.Size(197, 31);
-            this.textBoxOverallTotalFee.TabIndex = 34;
+            this.textBoxOverallTotalFee.Size = new System.Drawing.Size(291, 26);
+            this.textBoxOverallTotalFee.TabIndex = 8;
             // 
             // textBoxSessionDuration
             // 
-            this.textBoxSessionDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSessionDuration.Location = new System.Drawing.Point(12, 106);
+            this.textBoxSessionDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSessionDuration.Location = new System.Drawing.Point(160, 215);
             this.textBoxSessionDuration.Name = "textBoxSessionDuration";
-            this.textBoxSessionDuration.Size = new System.Drawing.Size(234, 31);
-            this.textBoxSessionDuration.TabIndex = 32;
+            this.textBoxSessionDuration.Size = new System.Drawing.Size(291, 26);
+            this.textBoxSessionDuration.TabIndex = 3;
             this.textBoxSessionDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxNumerical_KeyPress);
             // 
             // TimePickerSessionSchedule
             // 
             this.TimePickerSessionSchedule.CustomFormat = "MMM dd yyyy";
-            this.TimePickerSessionSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimePickerSessionSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TimePickerSessionSchedule.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TimePickerSessionSchedule.Location = new System.Drawing.Point(438, 40);
+            this.TimePickerSessionSchedule.Location = new System.Drawing.Point(311, 135);
             this.TimePickerSessionSchedule.Name = "TimePickerSessionSchedule";
             this.TimePickerSessionSchedule.ShowUpDown = true;
-            this.TimePickerSessionSchedule.Size = new System.Drawing.Size(140, 29);
-            this.TimePickerSessionSchedule.TabIndex = 37;
+            this.TimePickerSessionSchedule.Size = new System.Drawing.Size(140, 26);
+            this.TimePickerSessionSchedule.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(282, 10);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(13, 140);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(185, 25);
-            this.label3.TabIndex = 36;
-            this.label3.Text = "Session Schedule";
+            this.label3.Size = new System.Drawing.Size(141, 20);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Session Schedule:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 78);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(19, 218);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 25);
-            this.label2.TabIndex = 33;
-            this.label2.Text = "Session Duration";
-            // 
-            // PanelStudentInfo
-            // 
-            this.PanelStudentInfo.Controls.Add(this.TextBoxEnrollmentStudName);
-            this.PanelStudentInfo.Controls.Add(this.TextBoxStudEmail);
-            this.PanelStudentInfo.Controls.Add(this.labelStudentName);
-            this.PanelStudentInfo.Controls.Add(this.labelStudentEmail);
-            this.PanelStudentInfo.Location = new System.Drawing.Point(18, 18);
-            this.PanelStudentInfo.Name = "PanelStudentInfo";
-            this.PanelStudentInfo.Size = new System.Drawing.Size(274, 160);
-            this.PanelStudentInfo.TabIndex = 39;
+            this.label2.Size = new System.Drawing.Size(135, 20);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Session Duration:";
             // 
             // TextBoxEnrollmentStudName
             // 
-            this.TextBoxEnrollmentStudName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxEnrollmentStudName.Location = new System.Drawing.Point(18, 38);
+            this.TextBoxEnrollmentStudName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxEnrollmentStudName.Location = new System.Drawing.Point(160, 53);
             this.TextBoxEnrollmentStudName.Name = "TextBoxEnrollmentStudName";
-            this.TextBoxEnrollmentStudName.Size = new System.Drawing.Size(234, 31);
-            this.TextBoxEnrollmentStudName.TabIndex = 1;
+            this.TextBoxEnrollmentStudName.Size = new System.Drawing.Size(291, 26);
+            this.TextBoxEnrollmentStudName.TabIndex = 0;
             this.TextBoxEnrollmentStudName.TextChanged += new System.EventHandler(this.TextBoxEnrollmentStudName_TextChanged);
             // 
             // TextBoxStudEmail
             // 
-            this.TextBoxStudEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxStudEmail.Location = new System.Drawing.Point(18, 106);
+            this.TextBoxStudEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxStudEmail.Location = new System.Drawing.Point(160, 95);
             this.TextBoxStudEmail.Name = "TextBoxStudEmail";
-            this.TextBoxStudEmail.Size = new System.Drawing.Size(234, 31);
-            this.TextBoxStudEmail.TabIndex = 2;
+            this.TextBoxStudEmail.Size = new System.Drawing.Size(291, 26);
+            this.TextBoxStudEmail.TabIndex = 1;
             // 
             // labelStudentName
             // 
             this.labelStudentName.AutoSize = true;
-            this.labelStudentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStudentName.Location = new System.Drawing.Point(13, 10);
+            this.labelStudentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStudentName.Location = new System.Drawing.Point(38, 56);
             this.labelStudentName.Name = "labelStudentName";
-            this.labelStudentName.Size = new System.Drawing.Size(148, 25);
-            this.labelStudentName.TabIndex = 5;
-            this.labelStudentName.Text = "Student Name";
+            this.labelStudentName.Size = new System.Drawing.Size(116, 20);
+            this.labelStudentName.TabIndex = 0;
+            this.labelStudentName.Text = "Student Name:";
             // 
             // labelStudentEmail
             // 
             this.labelStudentEmail.AutoSize = true;
-            this.labelStudentEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStudentEmail.Location = new System.Drawing.Point(13, 78);
+            this.labelStudentEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStudentEmail.Location = new System.Drawing.Point(97, 98);
             this.labelStudentEmail.Name = "labelStudentEmail";
-            this.labelStudentEmail.Size = new System.Drawing.Size(73, 25);
-            this.labelStudentEmail.TabIndex = 6;
-            this.labelStudentEmail.Text = "E-Mail";
+            this.labelStudentEmail.Size = new System.Drawing.Size(57, 20);
+            this.labelStudentEmail.TabIndex = 1;
+            this.labelStudentEmail.Text = "E-Mail:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(508, 196);
+            this.label1.Location = new System.Drawing.Point(900, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(182, 24);
-            this.label1.TabIndex = 16;
+            this.label1.TabIndex = 3;
             this.label1.Text = "Tutors in the Subject";
-            // 
-            // lablePreferredSubjects
-            // 
-            this.lablePreferredSubjects.AutoSize = true;
-            this.lablePreferredSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lablePreferredSubjects.Location = new System.Drawing.Point(14, 360);
-            this.lablePreferredSubjects.Name = "lablePreferredSubjects";
-            this.lablePreferredSubjects.Size = new System.Drawing.Size(165, 24);
-            this.lablePreferredSubjects.TabIndex = 15;
-            this.lablePreferredSubjects.Text = "Preferred Subjects";
             // 
             // dataGridViewTutorInTheSubject
             // 
@@ -359,22 +321,22 @@
             this.dataGridViewTutorInTheSubject.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewTutorInTheSubject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTutorInTheSubject.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewTutorInTheSubject.Location = new System.Drawing.Point(512, 223);
+            this.dataGridViewTutorInTheSubject.Location = new System.Drawing.Point(478, 45);
             this.dataGridViewTutorInTheSubject.Name = "dataGridViewTutorInTheSubject";
             this.dataGridViewTutorInTheSubject.ReadOnly = true;
             this.dataGridViewTutorInTheSubject.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewTutorInTheSubject.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTutorInTheSubject.ShowEditingIcon = false;
-            this.dataGridViewTutorInTheSubject.Size = new System.Drawing.Size(570, 115);
-            this.dataGridViewTutorInTheSubject.TabIndex = 14;
+            this.dataGridViewTutorInTheSubject.Size = new System.Drawing.Size(604, 203);
+            this.dataGridViewTutorInTheSubject.TabIndex = 6;
             // 
             // buttonRegisterPrefSub
             // 
             this.buttonRegisterPrefSub.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRegisterPrefSub.Location = new System.Drawing.Point(919, 15);
+            this.buttonRegisterPrefSub.Location = new System.Drawing.Point(478, 258);
             this.buttonRegisterPrefSub.Name = "buttonRegisterPrefSub";
             this.buttonRegisterPrefSub.Size = new System.Drawing.Size(163, 34);
-            this.buttonRegisterPrefSub.TabIndex = 12;
+            this.buttonRegisterPrefSub.TabIndex = 8;
             this.buttonRegisterPrefSub.Text = "Register";
             this.buttonRegisterPrefSub.UseVisualStyleBackColor = true;
             this.buttonRegisterPrefSub.Click += new System.EventHandler(this.buttonRegisterPrefSub_Click);
@@ -382,10 +344,10 @@
             // buttonRemoveSub
             // 
             this.buttonRemoveSub.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveSub.Location = new System.Drawing.Point(919, 62);
+            this.buttonRemoveSub.Location = new System.Drawing.Point(647, 258);
             this.buttonRemoveSub.Name = "buttonRemoveSub";
             this.buttonRemoveSub.Size = new System.Drawing.Size(163, 34);
-            this.buttonRemoveSub.TabIndex = 11;
+            this.buttonRemoveSub.TabIndex = 9;
             this.buttonRemoveSub.Text = "Remove";
             this.buttonRemoveSub.UseVisualStyleBackColor = true;
             this.buttonRemoveSub.Click += new System.EventHandler(this.buttonRemoveSub_Click);
@@ -393,10 +355,10 @@
             // ButtonEnrollStudent
             // 
             this.ButtonEnrollStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonEnrollStudent.Location = new System.Drawing.Point(919, 140);
+            this.ButtonEnrollStudent.Location = new System.Drawing.Point(915, 258);
             this.ButtonEnrollStudent.Name = "ButtonEnrollStudent";
-            this.ButtonEnrollStudent.Size = new System.Drawing.Size(163, 38);
-            this.ButtonEnrollStudent.TabIndex = 9;
+            this.ButtonEnrollStudent.Size = new System.Drawing.Size(167, 34);
+            this.ButtonEnrollStudent.TabIndex = 10;
             this.ButtonEnrollStudent.Text = "Enroll";
             this.ButtonEnrollStudent.UseVisualStyleBackColor = true;
             this.ButtonEnrollStudent.Click += new System.EventHandler(this.buttonEnrollStudent_Click);
@@ -410,14 +372,14 @@
             this.dataGridViewPreferredSubjects.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewPreferredSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPreferredSubjects.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewPreferredSubjects.Location = new System.Drawing.Point(18, 387);
+            this.dataGridViewPreferredSubjects.Location = new System.Drawing.Point(18, 298);
             this.dataGridViewPreferredSubjects.Name = "dataGridViewPreferredSubjects";
             this.dataGridViewPreferredSubjects.ReadOnly = true;
             this.dataGridViewPreferredSubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewPreferredSubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewPreferredSubjects.ShowEditingIcon = false;
-            this.dataGridViewPreferredSubjects.Size = new System.Drawing.Size(1064, 132);
-            this.dataGridViewPreferredSubjects.TabIndex = 0;
+            this.dataGridViewPreferredSubjects.Size = new System.Drawing.Size(1064, 233);
+            this.dataGridViewPreferredSubjects.TabIndex = 7;
             // 
             // tabPageTutorRegistration
             // 
@@ -451,7 +413,7 @@
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
             this.dateTimePickerEndTime.Size = new System.Drawing.Size(177, 29);
-            this.dateTimePickerEndTime.TabIndex = 36;
+            this.dateTimePickerEndTime.TabIndex = 5;
             // 
             // dateTimePickerBeginTime
             // 
@@ -461,7 +423,7 @@
             this.dateTimePickerBeginTime.Name = "dateTimePickerBeginTime";
             this.dateTimePickerBeginTime.ShowUpDown = true;
             this.dateTimePickerBeginTime.Size = new System.Drawing.Size(177, 29);
-            this.dateTimePickerBeginTime.TabIndex = 35;
+            this.dateTimePickerBeginTime.TabIndex = 4;
             // 
             // labelEndTime
             // 
@@ -470,7 +432,7 @@
             this.labelEndTime.Location = new System.Drawing.Point(218, 339);
             this.labelEndTime.Name = "labelEndTime";
             this.labelEndTime.Size = new System.Drawing.Size(103, 25);
-            this.labelEndTime.TabIndex = 34;
+            this.labelEndTime.TabIndex = 14;
             this.labelEndTime.Text = "End Time";
             // 
             // labelBeginTime
@@ -480,7 +442,7 @@
             this.labelBeginTime.Location = new System.Drawing.Point(34, 339);
             this.labelBeginTime.Name = "labelBeginTime";
             this.labelBeginTime.Size = new System.Drawing.Size(120, 25);
-            this.labelBeginTime.TabIndex = 33;
+            this.labelBeginTime.TabIndex = 13;
             this.labelBeginTime.Text = "Begin Time";
             // 
             // textBoxTutorEmail
@@ -489,7 +451,7 @@
             this.textBoxTutorEmail.Location = new System.Drawing.Point(39, 150);
             this.textBoxTutorEmail.Name = "textBoxTutorEmail";
             this.textBoxTutorEmail.Size = new System.Drawing.Size(361, 31);
-            this.textBoxTutorEmail.TabIndex = 32;
+            this.textBoxTutorEmail.TabIndex = 1;
             // 
             // labelTutorEmail
             // 
@@ -498,7 +460,7 @@
             this.labelTutorEmail.Location = new System.Drawing.Point(34, 122);
             this.labelTutorEmail.Name = "labelTutorEmail";
             this.labelTutorEmail.Size = new System.Drawing.Size(65, 25);
-            this.labelTutorEmail.TabIndex = 31;
+            this.labelTutorEmail.TabIndex = 10;
             this.labelTutorEmail.Text = "Email";
             // 
             // comboBoxExpertise
@@ -509,7 +471,7 @@
             this.comboBoxExpertise.Location = new System.Drawing.Point(39, 220);
             this.comboBoxExpertise.Name = "comboBoxExpertise";
             this.comboBoxExpertise.Size = new System.Drawing.Size(361, 33);
-            this.comboBoxExpertise.TabIndex = 29;
+            this.comboBoxExpertise.TabIndex = 2;
             // 
             // labelExpertise
             // 
@@ -518,7 +480,7 @@
             this.labelExpertise.Location = new System.Drawing.Point(34, 192);
             this.labelExpertise.Name = "labelExpertise";
             this.labelExpertise.Size = new System.Drawing.Size(102, 25);
-            this.labelExpertise.TabIndex = 28;
+            this.labelExpertise.TabIndex = 11;
             this.labelExpertise.Text = "Expertise";
             // 
             // textBoxTutorName
@@ -527,7 +489,7 @@
             this.textBoxTutorName.Location = new System.Drawing.Point(39, 77);
             this.textBoxTutorName.Name = "textBoxTutorName";
             this.textBoxTutorName.Size = new System.Drawing.Size(361, 31);
-            this.textBoxTutorName.TabIndex = 26;
+            this.textBoxTutorName.TabIndex = 0;
             this.textBoxTutorName.TextChanged += new System.EventHandler(this.textBoxTutorName_TextChanged);
             // 
             // textBoxTutorHourlyRate
@@ -536,7 +498,7 @@
             this.textBoxTutorHourlyRate.Location = new System.Drawing.Point(39, 290);
             this.textBoxTutorHourlyRate.Name = "textBoxTutorHourlyRate";
             this.textBoxTutorHourlyRate.Size = new System.Drawing.Size(361, 31);
-            this.textBoxTutorHourlyRate.TabIndex = 24;
+            this.textBoxTutorHourlyRate.TabIndex = 3;
             this.textBoxTutorHourlyRate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxNumerical_KeyPress);
             // 
             // labelHourlyRate
@@ -546,7 +508,7 @@
             this.labelHourlyRate.Location = new System.Drawing.Point(34, 262);
             this.labelHourlyRate.Name = "labelHourlyRate";
             this.labelHourlyRate.Size = new System.Drawing.Size(125, 25);
-            this.labelHourlyRate.TabIndex = 25;
+            this.labelHourlyRate.TabIndex = 12;
             this.labelHourlyRate.Text = "Hourly Rate";
             // 
             // label5
@@ -556,7 +518,7 @@
             this.label5.Location = new System.Drawing.Point(34, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(124, 25);
-            this.label5.TabIndex = 19;
+            this.label5.TabIndex = 9;
             this.label5.Text = "Tutor Name";
             // 
             // buttonTutorDelete
@@ -565,7 +527,7 @@
             this.buttonTutorDelete.Location = new System.Drawing.Point(223, 445);
             this.buttonTutorDelete.Name = "buttonTutorDelete";
             this.buttonTutorDelete.Size = new System.Drawing.Size(177, 41);
-            this.buttonTutorDelete.TabIndex = 14;
+            this.buttonTutorDelete.TabIndex = 7;
             this.buttonTutorDelete.Text = "Delete";
             this.buttonTutorDelete.UseVisualStyleBackColor = true;
             this.buttonTutorDelete.Click += new System.EventHandler(this.buttonTutorDelete_Click);
@@ -576,7 +538,7 @@
             this.buttonRegisterTutor.Location = new System.Drawing.Point(39, 445);
             this.buttonRegisterTutor.Name = "buttonRegisterTutor";
             this.buttonRegisterTutor.Size = new System.Drawing.Size(177, 41);
-            this.buttonRegisterTutor.TabIndex = 12;
+            this.buttonRegisterTutor.TabIndex = 6;
             this.buttonRegisterTutor.Text = "Register";
             this.buttonRegisterTutor.UseVisualStyleBackColor = true;
             this.buttonRegisterTutor.Click += new System.EventHandler(this.buttonRegisterTutor_Click);
@@ -598,7 +560,7 @@
             this.dataGridViewTutorManagement.ShowEditingIcon = false;
             this.dataGridViewTutorManagement.ShowRowErrors = false;
             this.dataGridViewTutorManagement.Size = new System.Drawing.Size(633, 460);
-            this.dataGridViewTutorManagement.TabIndex = 0;
+            this.dataGridViewTutorManagement.TabIndex = 8;
             // 
             // tabPageSubjectLibrary
             // 
@@ -630,7 +592,7 @@
             this.dataGridViewTutorPerSubject.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewTutorPerSubject.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTutorPerSubject.Size = new System.Drawing.Size(263, 460);
-            this.dataGridViewTutorPerSubject.TabIndex = 30;
+            this.dataGridViewTutorPerSubject.TabIndex = 4;
             // 
             // textBoxSubjectLib
             // 
@@ -638,7 +600,7 @@
             this.textBoxSubjectLib.Location = new System.Drawing.Point(85, 225);
             this.textBoxSubjectLib.Name = "textBoxSubjectLib";
             this.textBoxSubjectLib.Size = new System.Drawing.Size(345, 31);
-            this.textBoxSubjectLib.TabIndex = 29;
+            this.textBoxSubjectLib.TabIndex = 0;
             this.textBoxSubjectLib.TextChanged += new System.EventHandler(this.textBoxTutorinServiceLib_TextChanged);
             // 
             // buttonDeleteToolInventory
@@ -647,7 +609,7 @@
             this.buttonDeleteToolInventory.Location = new System.Drawing.Point(268, 281);
             this.buttonDeleteToolInventory.Name = "buttonDeleteToolInventory";
             this.buttonDeleteToolInventory.Size = new System.Drawing.Size(162, 37);
-            this.buttonDeleteToolInventory.TabIndex = 28;
+            this.buttonDeleteToolInventory.TabIndex = 2;
             this.buttonDeleteToolInventory.Text = "Delete";
             this.buttonDeleteToolInventory.UseVisualStyleBackColor = true;
             this.buttonDeleteToolInventory.Click += new System.EventHandler(this.buttonDeleteToolInventory_Click);
@@ -658,7 +620,7 @@
             this.buttonAddToolInventory.Location = new System.Drawing.Point(85, 281);
             this.buttonAddToolInventory.Name = "buttonAddToolInventory";
             this.buttonAddToolInventory.Size = new System.Drawing.Size(162, 37);
-            this.buttonAddToolInventory.TabIndex = 26;
+            this.buttonAddToolInventory.TabIndex = 1;
             this.buttonAddToolInventory.Text = "Add";
             this.buttonAddToolInventory.UseVisualStyleBackColor = true;
             this.buttonAddToolInventory.Click += new System.EventHandler(this.buttonAddISubject_Click);
@@ -670,7 +632,7 @@
             this.labelInventoryService.Location = new System.Drawing.Point(80, 197);
             this.labelInventoryService.Name = "labelInventoryService";
             this.labelInventoryService.Size = new System.Drawing.Size(84, 25);
-            this.labelInventoryService.TabIndex = 24;
+            this.labelInventoryService.TabIndex = 5;
             this.labelInventoryService.Text = "Subject";
             // 
             // dataGridViewSubjects
@@ -688,7 +650,7 @@
             this.dataGridViewSubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewSubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewSubjects.Size = new System.Drawing.Size(263, 460);
-            this.dataGridViewSubjects.TabIndex = 23;
+            this.dataGridViewSubjects.TabIndex = 3;
             this.dataGridViewSubjects.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewSubjects_RowHeaderMouseClick);
             // 
             // tabPageBilling
@@ -716,7 +678,7 @@
             this.SearchBoxBilling.Location = new System.Drawing.Point(788, 23);
             this.SearchBoxBilling.Name = "SearchBoxBilling";
             this.SearchBoxBilling.Size = new System.Drawing.Size(306, 33);
-            this.SearchBoxBilling.TabIndex = 9;
+            this.SearchBoxBilling.TabIndex = 5;
             this.SearchBoxBilling.Visible = false;
             this.SearchBoxBilling.TextChanged += new System.EventHandler(this.SearchBoxBilling_TextChanged);
             // 
@@ -747,7 +709,7 @@
             this.DataGridViewPartialPayment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DataGridViewPartialPayment.ShowEditingIcon = false;
             this.DataGridViewPartialPayment.Size = new System.Drawing.Size(1086, 110);
-            this.DataGridViewPartialPayment.TabIndex = 7;
+            this.DataGridViewPartialPayment.TabIndex = 1;
             this.DataGridViewPartialPayment.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewPartialPayment_RowHeaderMouseClick);
             // 
             // labelPayment
@@ -766,7 +728,7 @@
             this.textBoxPayment.Location = new System.Drawing.Point(704, 505);
             this.textBoxPayment.Name = "textBoxPayment";
             this.textBoxPayment.Size = new System.Drawing.Size(226, 26);
-            this.textBoxPayment.TabIndex = 5;
+            this.textBoxPayment.TabIndex = 3;
             this.textBoxPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxNumerical_KeyPress);
             // 
@@ -777,7 +739,7 @@
             this.labelPayedPayments.Location = new System.Drawing.Point(8, 348);
             this.labelPayedPayments.Name = "labelPayedPayments";
             this.labelPayedPayments.Size = new System.Drawing.Size(156, 25);
-            this.labelPayedPayments.TabIndex = 4;
+            this.labelPayedPayments.TabIndex = 9;
             this.labelPayedPayments.Text = "Paid Payments";
             // 
             // labelPendingPayments
@@ -787,7 +749,7 @@
             this.labelPendingPayments.Location = new System.Drawing.Point(3, 34);
             this.labelPendingPayments.Name = "labelPendingPayments";
             this.labelPendingPayments.Size = new System.Drawing.Size(192, 25);
-            this.labelPendingPayments.TabIndex = 3;
+            this.labelPendingPayments.TabIndex = 7;
             this.labelPendingPayments.Text = "Pending Payments";
             // 
             // DataGridViewPaidPayment
@@ -815,7 +777,7 @@
             this.buttonPaid.Location = new System.Drawing.Point(936, 505);
             this.buttonPaid.Name = "buttonPaid";
             this.buttonPaid.Size = new System.Drawing.Size(158, 26);
-            this.buttonPaid.TabIndex = 1;
+            this.buttonPaid.TabIndex = 4;
             this.buttonPaid.Text = "Pay";
             this.buttonPaid.UseVisualStyleBackColor = true;
             this.buttonPaid.Click += new System.EventHandler(this.buttonPaid_Click);
@@ -860,6 +822,172 @@
             this.reportViewerReceipt.TabIndex = 0;
             this.reportViewerReceipt.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             // 
+            // LabelTransactionID
+            // 
+            this.LabelTransactionID.AutoSize = true;
+            this.LabelTransactionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTransactionID.Location = new System.Drawing.Point(37, 22);
+            this.LabelTransactionID.Name = "LabelTransactionID";
+            this.LabelTransactionID.Size = new System.Drawing.Size(117, 20);
+            this.LabelTransactionID.TabIndex = 2;
+            this.LabelTransactionID.Text = "Transaction ID:";
+            // 
+            // TextBoxTransactionID
+            // 
+            this.TextBoxTransactionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxTransactionID.Location = new System.Drawing.Point(160, 19);
+            this.TextBoxTransactionID.Name = "TextBoxTransactionID";
+            this.TextBoxTransactionID.Size = new System.Drawing.Size(291, 26);
+            this.TextBoxTransactionID.TabIndex = 11;
+            // 
+            // tabPageStudentEnrollment
+            // 
+            this.tabPageStudentEnrollment.AutoScroll = true;
+            this.tabPageStudentEnrollment.Controls.Add(this.ButtonRegisterStudent);
+            this.tabPageStudentEnrollment.Controls.Add(firstNameLabel);
+            this.tabPageStudentEnrollment.Controls.Add(this.firstNameTextBox);
+            this.tabPageStudentEnrollment.Controls.Add(lastNameLabel);
+            this.tabPageStudentEnrollment.Controls.Add(this.lastNameTextBox);
+            this.tabPageStudentEnrollment.Controls.Add(studentEmailLabel);
+            this.tabPageStudentEnrollment.Controls.Add(this.studentEmailTextBox);
+            this.tabPageStudentEnrollment.Controls.Add(studentNameLabel);
+            this.tabPageStudentEnrollment.Controls.Add(this.studentNameTextBox);
+            this.tabPageStudentEnrollment.Controls.Add(studIdLabel);
+            this.tabPageStudentEnrollment.Controls.Add(this.studIdTextBox);
+            this.tabPageStudentEnrollment.Controls.Add(this.DataGridViewStudentList);
+            this.tabPageStudentEnrollment.Location = new System.Drawing.Point(4, 25);
+            this.tabPageStudentEnrollment.Name = "tabPageStudentEnrollment";
+            this.tabPageStudentEnrollment.Size = new System.Drawing.Size(1102, 539);
+            this.tabPageStudentEnrollment.TabIndex = 8;
+            this.tabPageStudentEnrollment.Text = "Student Enrollment";
+            this.tabPageStudentEnrollment.UseVisualStyleBackColor = true;
+            // 
+            // DataGridViewStudentList
+            // 
+            this.DataGridViewStudentList.AllowUserToAddRows = false;
+            this.DataGridViewStudentList.AllowUserToDeleteRows = false;
+            this.DataGridViewStudentList.AllowUserToResizeColumns = false;
+            this.DataGridViewStudentList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DataGridViewStudentList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.DataGridViewStudentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewStudentList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DataGridViewStudentList.Location = new System.Drawing.Point(447, 25);
+            this.DataGridViewStudentList.Name = "DataGridViewStudentList";
+            this.DataGridViewStudentList.ReadOnly = true;
+            this.DataGridViewStudentList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.DataGridViewStudentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGridViewStudentList.ShowEditingIcon = false;
+            this.DataGridViewStudentList.Size = new System.Drawing.Size(635, 488);
+            this.DataGridViewStudentList.TabIndex = 7;
+            // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataSource = typeof(_3_13_25.D2.DataModels.Student);
+            // 
+            // firstNameLabel
+            // 
+            firstNameLabel.AutoSize = true;
+            firstNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            firstNameLabel.Location = new System.Drawing.Point(35, 318);
+            firstNameLabel.Name = "firstNameLabel";
+            firstNameLabel.Size = new System.Drawing.Size(106, 24);
+            firstNameLabel.TabIndex = 7;
+            firstNameLabel.Text = "First Name:";
+            // 
+            // firstNameTextBox
+            // 
+            this.firstNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FirstName", true));
+            this.firstNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstNameTextBox.Location = new System.Drawing.Point(176, 315);
+            this.firstNameTextBox.Name = "firstNameTextBox";
+            this.firstNameTextBox.Size = new System.Drawing.Size(244, 29);
+            this.firstNameTextBox.TabIndex = 8;
+            // 
+            // lastNameLabel
+            // 
+            lastNameLabel.AutoSize = true;
+            lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lastNameLabel.Location = new System.Drawing.Point(35, 377);
+            lastNameLabel.Name = "lastNameLabel";
+            lastNameLabel.Size = new System.Drawing.Size(104, 24);
+            lastNameLabel.TabIndex = 9;
+            lastNameLabel.Text = "Last Name:";
+            // 
+            // lastNameTextBox
+            // 
+            this.lastNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "LastName", true));
+            this.lastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastNameTextBox.Location = new System.Drawing.Point(176, 374);
+            this.lastNameTextBox.Name = "lastNameTextBox";
+            this.lastNameTextBox.Size = new System.Drawing.Size(244, 29);
+            this.lastNameTextBox.TabIndex = 10;
+            // 
+            // studentEmailLabel
+            // 
+            studentEmailLabel.AutoSize = true;
+            studentEmailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            studentEmailLabel.Location = new System.Drawing.Point(16, 261);
+            studentEmailLabel.Name = "studentEmailLabel";
+            studentEmailLabel.Size = new System.Drawing.Size(131, 24);
+            studentEmailLabel.TabIndex = 11;
+            studentEmailLabel.Text = "Student Email:";
+            // 
+            // studentEmailTextBox
+            // 
+            this.studentEmailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentEmail", true));
+            this.studentEmailTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.studentEmailTextBox.Location = new System.Drawing.Point(176, 258);
+            this.studentEmailTextBox.Name = "studentEmailTextBox";
+            this.studentEmailTextBox.Size = new System.Drawing.Size(244, 29);
+            this.studentEmailTextBox.TabIndex = 12;
+            // 
+            // studentNameLabel
+            // 
+            studentNameLabel.AutoSize = true;
+            studentNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            studentNameLabel.Location = new System.Drawing.Point(13, 199);
+            studentNameLabel.Name = "studentNameLabel";
+            studentNameLabel.Size = new System.Drawing.Size(135, 24);
+            studentNameLabel.TabIndex = 13;
+            studentNameLabel.Text = "Student Name:";
+            // 
+            // studentNameTextBox
+            // 
+            this.studentNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentName", true));
+            this.studentNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.studentNameTextBox.Location = new System.Drawing.Point(176, 196);
+            this.studentNameTextBox.Name = "studentNameTextBox";
+            this.studentNameTextBox.Size = new System.Drawing.Size(244, 29);
+            this.studentNameTextBox.TabIndex = 14;
+            // 
+            // studIdLabel
+            // 
+            studIdLabel.AutoSize = true;
+            studIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            studIdLabel.Location = new System.Drawing.Point(74, 137);
+            studIdLabel.Name = "studIdLabel";
+            studIdLabel.Size = new System.Drawing.Size(73, 24);
+            studIdLabel.TabIndex = 15;
+            studIdLabel.Text = "Stud Id:";
+            // 
+            // studIdTextBox
+            // 
+            this.studIdTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudId", true));
+            this.studIdTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.studIdTextBox.Location = new System.Drawing.Point(176, 134);
+            this.studIdTextBox.Name = "studIdTextBox";
+            this.studIdTextBox.Size = new System.Drawing.Size(244, 29);
+            this.studIdTextBox.TabIndex = 16;
+            // 
+            // ButtonRegisterStudent
+            // 
+            this.ButtonRegisterStudent.Location = new System.Drawing.Point(266, 445);
+            this.ButtonRegisterStudent.Name = "ButtonRegisterStudent";
+            this.ButtonRegisterStudent.Size = new System.Drawing.Size(153, 32);
+            this.ButtonRegisterStudent.TabIndex = 17;
+            this.ButtonRegisterStudent.Text = "Register";
+            this.ButtonRegisterStudent.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -874,11 +1002,6 @@
             this.tabControlMain.ResumeLayout(false);
             this.tabPageEnroll.ResumeLayout(false);
             this.tabPageEnroll.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewStudentList)).EndInit();
-            this.PanelSubjectEnrollment.ResumeLayout(false);
-            this.PanelSubjectEnrollment.PerformLayout();
-            this.PanelStudentInfo.ResumeLayout(false);
-            this.PanelStudentInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTutorInTheSubject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreferredSubjects)).EndInit();
             this.tabPageTutorRegistration.ResumeLayout(false);
@@ -894,6 +1017,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPaidPayment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPendingPayment)).EndInit();
             this.tabPageReceiptReport.ResumeLayout(false);
+            this.tabPageStudentEnrollment.ResumeLayout(false);
+            this.tabPageStudentEnrollment.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewStudentList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -932,7 +1059,6 @@
         private System.Windows.Forms.ComboBox comboBoxExpertise;
         private System.Windows.Forms.DataGridView dataGridViewTutorInTheSubject;
         private System.Windows.Forms.DataGridView dataGridViewPreferredSubjects;
-        private System.Windows.Forms.Label lablePreferredSubjects;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxSessionDuration;
         private System.Windows.Forms.Label labelSubjects;
@@ -955,12 +1081,19 @@
         private System.Windows.Forms.TabPage tabPageReceiptReport;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewerReceipt;
         private System.Windows.Forms.DateTimePicker DatePickerSessionSchedule;
-        private System.Windows.Forms.Panel PanelSubjectEnrollment;
-        private System.Windows.Forms.Panel PanelStudentInfo;
-        private System.Windows.Forms.Label labelStudentList;
-        private System.Windows.Forms.DataGridView DataGridViewStudentList;
         private System.Windows.Forms.Label labelPartialPayment;
         private System.Windows.Forms.DataGridView DataGridViewPartialPayment;
         private System.Windows.Forms.TextBox SearchBoxBilling;
+        private System.Windows.Forms.Label LabelTransactionID;
+        private System.Windows.Forms.TextBox TextBoxTransactionID;
+        private System.Windows.Forms.TabPage tabPageStudentEnrollment;
+        private System.Windows.Forms.DataGridView DataGridViewStudentList;
+        private System.Windows.Forms.TextBox firstNameTextBox;
+        private System.Windows.Forms.BindingSource studentBindingSource;
+        private System.Windows.Forms.TextBox lastNameTextBox;
+        private System.Windows.Forms.TextBox studentEmailTextBox;
+        private System.Windows.Forms.TextBox studentNameTextBox;
+        private System.Windows.Forms.TextBox studIdTextBox;
+        private System.Windows.Forms.Button ButtonRegisterStudent;
     }
 }
