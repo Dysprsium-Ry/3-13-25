@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _3_13_25.D2.QueryStorage
 {
-    public class Querys
+    public class Queries
     {
 
         #region SearchBarFunction

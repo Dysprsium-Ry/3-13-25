@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using static BienvenidoOnlineTutorServices.D2.Objects.Objects;
+using static BienvenidoOnlineTutorServices.D2.Objects.ObjectModels;
 
 namespace BienvenidoOnlineTutorServices.D2.Classes
 {

@@ -7,7 +7,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static BienvenidoOnlineTutorServices.D2.Objects.Objects;
+using static BienvenidoOnlineTutorServices.D2.Objects.ObjectModels;
 
 namespace BienvenidoOnlineTutorServices.D2.Forms
 {
@@ -38,7 +38,7 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
                 else
                 {
                     ComboBoxEnrollmentSubject.DataSource = SubjectClass.FetchSubjects();
-                    OpsAndCalcs.SearchBar(DataGridViewStudentList, Querys.studListSbar, TextBoxEnrollmentStudName.Text);
+                    OpsAndCalcs.SearchBar(DataGridViewStudentList, Queries.studListSbar, TextBoxEnrollmentStudName.Text);
                     comboBoxExpertise.DataSource = SubjectClass.FetchSubjects();
                     SubjectClass.FetchSubjects();
                     DtEstablisher.TCDispTut(dataGridViewTutorManagement);
@@ -238,7 +238,7 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
         private void TextBoxEnrollmentStudName_TextChanged(object sender, EventArgs e)
         {
             //OpsAndCalcs.StudentList(DataGridViewStudentList, TextBoxEnrollmentStudName.Text);
-            OpsAndCalcs.SearchBar(DataGridViewStudentList, Querys.studListSbar, TextBoxEnrollmentStudName.Text);
+            OpsAndCalcs.SearchBar(DataGridViewStudentList, Queries.studListSbar, TextBoxEnrollmentStudName.Text);
             DataGridViewStudentList.Refresh();
         }
         private void buttonRegisterPrefSub_Click(object sender, EventArgs e)
@@ -293,7 +293,8 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
 
             if (!TemporalData.SubjectList.Contains(transactions))
             {
-                bool exist = TemporalData.SubjectList.Any(b => TimePickerSessionSchedule.Value <= b.SessionEndSchedule);
+                DateTime schedNow = DatePickerSessionSchedule.Value.Date + TimePickerSessionSchedule.Value.TimeOfDay;
+                bool exist = TemporalData.SubjectList.Any(b => schedNow <= b.SessionEndSchedule);
 
                 if (exist)
                 {
@@ -337,7 +338,7 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
         private void comboBoxPreferredSubjects_SelectedValueChanged(object sender, EventArgs e)
         {
             TemporalData.Subject = ComboBoxEnrollmentSubject.Text;
-            DtEstablisher.ECDispTut(dataGridViewTutorInTheSubject, Querys.ECDispTut, TemporalData.Subject);
+            DtEstablisher.ECDispTut(dataGridViewTutorInTheSubject, Queries.ECDispTut, TemporalData.Subject);
         }
 
         private void buttonRemoveSub_Click(object sender, EventArgs e)
@@ -439,13 +440,13 @@ namespace BienvenidoOnlineTutorServices.D2.Forms
 
         private void textBoxTutorName_TextChanged(object sender, EventArgs e)
         {
-            OpsAndCalcs.SearchBar(dataGridViewTutorManagement, Querys.tutListSbar, textBoxTutorName.Text);
+            OpsAndCalcs.SearchBar(dataGridViewTutorManagement, Queries.tutListSbar, textBoxTutorName.Text);
             dataGridViewTutorManagement.Refresh();
         }
 
         private void textBoxTutorinServiceLib_TextChanged(object sender, EventArgs e)
         {
-            OpsAndCalcs.SearchBar(dataGridViewTutorPerSubject, Querys.tutSubSBar, textBoxSubjectLib.Text);
+            OpsAndCalcs.SearchBar(dataGridViewTutorPerSubject, Queries.tutSubSBar, textBoxSubjectLib.Text);
             dataGridViewTutorPerSubject.Refresh();
         }
 

@@ -78,6 +78,7 @@
             this.labelInventoryService = new System.Windows.Forms.Label();
             this.dataGridViewSubjects = new System.Windows.Forms.DataGridView();
             this.tabPageBilling = new System.Windows.Forms.TabPage();
+            this.SearchBoxBilling = new System.Windows.Forms.TextBox();
             this.labelPartialPayment = new System.Windows.Forms.Label();
             this.DataGridViewPartialPayment = new System.Windows.Forms.DataGridView();
             this.labelPayment = new System.Windows.Forms.Label();
@@ -89,7 +90,6 @@
             this.DataGridViewPendingPayment = new System.Windows.Forms.DataGridView();
             this.tabPageReceiptReport = new System.Windows.Forms.TabPage();
             this.reportViewerReceipt = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.SearchBoxBilling = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageEnroll.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewStudentList)).BeginInit();
@@ -710,6 +710,16 @@
             this.tabPageBilling.Text = "Billing Management";
             this.tabPageBilling.UseVisualStyleBackColor = true;
             // 
+            // SearchBoxBilling
+            // 
+            this.SearchBoxBilling.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchBoxBilling.Location = new System.Drawing.Point(788, 23);
+            this.SearchBoxBilling.Name = "SearchBoxBilling";
+            this.SearchBoxBilling.Size = new System.Drawing.Size(306, 33);
+            this.SearchBoxBilling.TabIndex = 9;
+            this.SearchBoxBilling.Visible = false;
+            this.SearchBoxBilling.TextChanged += new System.EventHandler(this.SearchBoxBilling_TextChanged);
+            // 
             // labelPartialPayment
             // 
             this.labelPartialPayment.AutoSize = true;
@@ -849,15 +859,6 @@
             this.reportViewerReceipt.Size = new System.Drawing.Size(713, 495);
             this.reportViewerReceipt.TabIndex = 0;
             this.reportViewerReceipt.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
-            // 
-            // SearchBoxBilling
-            // 
-            this.SearchBoxBilling.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchBoxBilling.Location = new System.Drawing.Point(788, 23);
-            this.SearchBoxBilling.Name = "SearchBoxBilling";
-            this.SearchBoxBilling.Size = new System.Drawing.Size(306, 33);
-            this.SearchBoxBilling.TabIndex = 9;
-            this.SearchBoxBilling.TextChanged += new System.EventHandler(this.SearchBoxBilling_TextChanged);
             // 
             // MainForm
             // 

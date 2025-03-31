@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BienvenidoOnlineTutorServices.D2.Objects.Objects;
+using static BienvenidoOnlineTutorServices.D2.Objects.ObjectModels;
 using System.Windows.Forms;
 
 namespace _3_13_25.D2.DbConn

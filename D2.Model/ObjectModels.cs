@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace BienvenidoOnlineTutorServices.D2.Objects
 {
-    public class Objects
+    public class ObjectModels
     {
         public class DataId
         {
